@@ -7,20 +7,19 @@ namespace Pnipa.Geosnipa.Api.Controllers.V1;
 [ApiVersion("1.0")]
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")]
-public class UbicacionController : ControllerBase
+public class UbicacionesController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public UbicacionController(IMediator mediator)
+    public UbicacionesController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ObtenerTodasUbicacionesResponse))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ObtenerTodasUbicacionesResponse>))]
     public async Task<IActionResult> ObtenerTodasUbicaciones([FromQuery] ObtenerTodasUbicacionesRequest request)
     {
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        return Ok(await _mediator.Send(request));
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Pnipa.Geosnipa.Dominio.Modelos;
 
-public class SubProyectoEspecieModelo
+public class SubProyectosEspecieModelo
 {
-    
+    public int SubProyectoId { get; init; }
+    public string EspecieNombre { get; init; } = default!;
 }

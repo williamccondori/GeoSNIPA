@@ -1,6 +1,6 @@
 ﻿namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.Concurso;
 
-public class ConcursoFondo
+public class ConcursoFondoEntidad
 {
     public int ConcursoFondoId { get; set; }
     public int FondoId { get; set; }

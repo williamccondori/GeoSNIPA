@@ -2,6 +2,6 @@
 
 namespace Pnipa.Geosnipa.Aplicacion.Caracteristicas.Ubicaciones.Queries.ObtenerTodasUbicaciones;
 
-public class ObtenerTodasUbicacionesRequestModel : IRequest<ObtenerTodasUbicacionesResponseModel>
+public class ObtenerTodasUbicacionesRequest : IRequest<IEnumerable<ObtenerTodasUbicacionesResponse>>
 {
 }

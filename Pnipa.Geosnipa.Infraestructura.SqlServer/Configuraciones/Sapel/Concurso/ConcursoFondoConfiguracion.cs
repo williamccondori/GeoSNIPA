@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pnipa.Geosnipa.Dominio.Entidades.Sapel;
+using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Concurso;
 
-namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Configuraciones;
+namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Configuraciones.Sapel.Concurso;
 
-public class ConcursoFondoConfiguracion : IEntityTypeConfiguration<ConcursoFondo>
+public class ConcursoFondoConfiguracion : IEntityTypeConfiguration<ConcursoFondoEntidad>
 {
-    public void Configure(EntityTypeBuilder<ConcursoFondo> builder)
+    public void Configure(EntityTypeBuilder<ConcursoFondoEntidad> builder)
     {
         builder.HasKey(p => new {p.ConcursoFondoId});
         builder.ToTable("CONCURSOFONDO", "CONCURSO");

@@ -2,10 +2,6 @@
 
 public class ObtenerTodasUbicacionesResponse
 {
-    public IEnumerable<int> Ubicaciones { get; set; }
-
-    public ObtenerTodasUbicacionesResponse()
-    {
-        Ubicaciones = new List<int>();
-    }
+    public int UbicacionId { get; set; }
+    public string? NombreCompleto { get; set; }
 }

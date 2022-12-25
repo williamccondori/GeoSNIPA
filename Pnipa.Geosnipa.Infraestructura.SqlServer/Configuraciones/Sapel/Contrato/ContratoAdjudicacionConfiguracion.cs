@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pnipa.Geosnipa.Dominio.Entidades.Sapel;
+using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Contrato;
 
-namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Configuraciones.Sapel;
+namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Configuraciones.Sapel.Contrato;
 
-public class ContratoAdjudicacionConfiguracion : IEntityTypeConfiguration<ContratoAdjudicacion>
+public class ContratoAdjudicacionConfiguracion : IEntityTypeConfiguration<ContratoAdjudicacionEntidad>
 {
-    public void Configure(EntityTypeBuilder<ContratoAdjudicacion> builder)
+    public void Configure(EntityTypeBuilder<ContratoAdjudicacionEntidad> builder)
     {
         builder.HasKey(p => new {p.ContratoAdjudicacionId});
         builder.ToTable("CONTRATO_ADJUDICACION", "CONTRATO");
