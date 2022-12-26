@@ -17,8 +17,13 @@ public class SubProyectosController : ControllerBase
     }
 
     [HttpGet("ReporteVisor")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ObtenerReporteVisorResponse>))]
-    public async Task<IActionResult> ObtenerReporteVisor([FromQuery] ObtenerReporteVisorRequest request)
+    [ProducesResponseType(
+        StatusCodes.Status200OK,
+        Type = typeof(IEnumerable<ObtenerReporteVisorResponse>)
+    )]
+    public async Task<IActionResult> ObtenerReporteVisor(
+        [FromQuery] ObtenerReporteVisorRequest request
+    )
     {
         return Ok(await _mediator.Send(request));
     }

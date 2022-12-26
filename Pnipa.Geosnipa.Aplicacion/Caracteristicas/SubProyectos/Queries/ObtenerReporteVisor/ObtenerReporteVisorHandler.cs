@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Pnipa.Geosnipa.Dominio.Repositorios;
+using Pnipa.Geosnipa.Dominio.Repositorios.Sapel;
 
 namespace Pnipa.Geosnipa.Aplicacion.Caracteristicas.SubProyectos.Queries.ObtenerReporteVisor;
 

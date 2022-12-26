@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pnipa.Geosnipa.Dominio.Repositorios;
+using Pnipa.Geosnipa.Dominio.Repositorios.Sapel;
 using Pnipa.Geosnipa.Infraestructura.SqlServer.Contextos;
 using Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios;
 using Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.Sapel;

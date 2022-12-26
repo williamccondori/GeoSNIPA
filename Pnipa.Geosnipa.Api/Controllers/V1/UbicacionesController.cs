@@ -17,8 +17,13 @@ public class UbicacionesController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ObtenerTodasUbicacionesResponse>))]
-    public async Task<IActionResult> ObtenerTodasUbicaciones([FromQuery] ObtenerTodasUbicacionesRequest request)
+    [ProducesResponseType(
+        StatusCodes.Status200OK,
+        Type = typeof(IEnumerable<ObtenerTodasUbicacionesResponse>)
+    )]
+    public async Task<IActionResult> ObtenerTodasUbicaciones(
+        [FromQuery] ObtenerTodasUbicacionesRequest request
+    )
     {
         return Ok(await _mediator.Send(request));
     }

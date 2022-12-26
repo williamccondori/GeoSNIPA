@@ -14,16 +14,10 @@ builder.Services.AddApiVersioningExtension();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "Pnipa.Geosnipa.Api",
-        Version = "v1"
-    });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Pnipa.Geosnipa.Api", Version = "v1" });
 });
- 
 
 var app = builder.Build();
-
 
 if (app.Environment.IsDevelopment())
 {

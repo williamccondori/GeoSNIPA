@@ -16,8 +16,4 @@
       <ProjectReference Include="..\Pnipa.Geosnipa.Dominio\Pnipa.Geosnipa.Dominio.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Repositorios\PnipaConcursos\" />
-    </ItemGroup>
-
 </Project>
