@@ -1,8 +1,8 @@
 ﻿using Pnipa.Geosnipa.Dominio.Modelos;
 
-namespace Pnipa.Geosnipa.Dominio.Repositorios.Sapel;
+namespace Pnipa.Geosnipa.Dominio.Repositorios;
 
-public interface ISubProyectoRepositorio
+public interface ISapelSubProyectoRepositorio
 {
     Task<IEnumerable<ReporteVisorModelo>> ObtenerReporteParaGeoVisor();
 }

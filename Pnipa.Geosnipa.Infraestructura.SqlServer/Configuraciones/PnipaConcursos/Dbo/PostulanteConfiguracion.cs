@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Pnipa.Geosnipa.Dominio.Entidades.PnipaConcursos.Dbo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Configuraciones.PnipaConcursos.Dbo
 {
@@ -16,6 +11,16 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Configuraciones.PnipaConcurso
             builder.HasKey(p => new { p.Id });
             builder.ToTable("Postulante", "dbo");
             builder.Property(p => p.Id).HasColumnName("ID").IsRequired();
+            builder.Property(p => p.EtapaId).HasColumnName("EtapaID");
+            builder.Property(p => p.CodigoEnvioProyecto).HasColumnName("CodigoEnvioProyecto");
+            builder.Property(p => p.Ventanilla).HasColumnName("ventanilla");
+            builder.Property(p => p.UsuarioId).HasColumnName("UsuarioID");
+            builder.Property(p => p.ConvocatoriaId).HasColumnName("ConvocatoriaID");
+
+            builder.Property(p => p.UsuarioIdRegistro).HasColumnName("UsuarioIdRegistro");
+            builder.Property(p => p.UsuarioIdModifico).HasColumnName("UsuarioIdModifico");
+            builder.Property(p => p.FechaRegistro).HasColumnName("FechaRegistro");
+            builder.Property(p => p.FechaModifico).HasColumnName("FechaModifico");
             builder.Property(p => p.EstadoRegistro).HasColumnName("EstadoRegistro").IsRequired();
         }
     }

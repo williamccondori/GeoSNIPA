@@ -2,10 +2,8 @@
 
 namespace Pnipa.Geosnipa.Dominio.Entidades.PnipaConcursos.Dbo
 {
-    public class PostulanteMacroRegionEntidad : EntidadAuditable
+    public class MacroRegionEntidad : EntidadAuditable
     {
         public int Id { get; set; }
-        public int PostulanteId { get; set; }
-        public int MacroRegionId { get; set; }
     }
 }

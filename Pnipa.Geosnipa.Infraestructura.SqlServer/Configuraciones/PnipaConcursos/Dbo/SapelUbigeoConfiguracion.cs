@@ -8,7 +8,7 @@ public class SapelUbigeoConfiguracion : IEntityTypeConfiguration<SapelUbigeoEnti
 {
     public void Configure(EntityTypeBuilder<SapelUbigeoEntidad> builder)
     {
-        builder.HasKey(p => new {p.UbigeoId});
+        builder.HasKey(p => new { p.UbigeoId });
         builder.ToTable("SAPEL_UBIGEO", "dbo");
         builder.Property(p => p.UbigeoId).HasColumnName("UBI_ID").IsRequired();
         builder.Property(p => p.DepartamentoId).HasColumnName("DPTO_ID");

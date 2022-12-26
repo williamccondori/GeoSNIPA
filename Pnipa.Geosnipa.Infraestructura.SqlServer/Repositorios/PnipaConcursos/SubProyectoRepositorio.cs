@@ -2,12 +2,12 @@
 using Pnipa.Geosnipa.Dominio.Entidades.PnipaConcursos.Compartido;
 using Pnipa.Geosnipa.Dominio.Modelos;
 using Pnipa.Geosnipa.Dominio.Modelos.PnipaConcursos;
-using Pnipa.Geosnipa.Dominio.Repositorios.PnipaConcursos;
+using Pnipa.Geosnipa.Dominio.Repositorios;
 using Pnipa.Geosnipa.Infraestructura.SqlServer.Contextos;
 
 namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.PnipaConcursos
 {
-    public class SubProyectoRepositorio : ISubProyectoRepositorio
+    public class SubProyectoRepositorio : IPnipaConcursosSubProyectoRepositorio
     {
         private readonly PnipaConcursosContexto _pnipaConcursosContexto;
 
@@ -26,7 +26,7 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.PnipaConcursos
 
             var postulantes = await (
                 from postulante in _pnipaConcursosContexto.Postulantes
-                join postulanteMacroRegion in _pnipaConcursosContexto.PostulantesMacroRegion
+                join postulanteMacroRegion in _pnipaConcursosContexto.PostulantesMacroRegion.DefaultIfEmpty()
                     on new
                     {
                         PostulanteId = postulante.Id,
@@ -77,11 +77,49 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.PnipaConcursos
                         EstadoRegistro = EntidadAuditable.EstadoRegistroActivo
                     } equals new { convocatoria.Id, convocatoria.EstadoRegistro }
                 join ambitoIntervencion in _pnipaConcursosContexto.VistaAmbitosIntervencion
-                    on new { PostulanteId = postulante.Id, Numero = (long)1 } equals new
+                    on new { PostulanteId = postulante.Id, Numero = (long)decimal.One } equals new
                     {
                         ambitoIntervencion.PostulanteId,
                         ambitoIntervencion.Numero
                     }
+                join planNegocio in _pnipaConcursosContexto.PlanesNegocio.DefaultIfEmpty()
+                    on new
+                    {
+                        PostulanteId = postulante.Id,
+                        EstadoRegistro = EntidadAuditable.EstadoRegistroActivo
+                    } equals new { planNegocio.PostulanteId, planNegocio.EstadoRegistro }
+                join productoPlanNegocio in _pnipaConcursosContexto.ProductosPlanNegocio.DefaultIfEmpty()
+                    on new
+                    {
+                        PlanNegocioId = planNegocio.Id,
+                        EstadoRegistro = EntidadAuditable.EstadoRegistroActivo
+                    } equals new
+                    {
+                        productoPlanNegocio.PlanNegocioId,
+                        productoPlanNegocio.EstadoRegistro
+                    }
+                join ubigeo in _pnipaConcursosContexto.EntidadProponenteUbigeos.DefaultIfEmpty()
+                    on new
+                    {
+                        PostulanteId = postulante.Id,
+                        EstadoRegistro = EntidadAuditable.EstadoRegistroActivo
+                    } equals new { ubigeo.PostulanteId, ubigeo.EstadoRegistro }
+                join macroRegion in _pnipaConcursosContexto.MacroRegiones.DefaultIfEmpty()
+                    on new
+                    {
+                        Id = postulanteMacroRegion.MacroRegionId,
+                        EstadoRegistro = EntidadAuditable.EstadoRegistroActivo
+                    } equals new { macroRegion.Id, macroRegion.EstadoRegistro }
+                join factor in _pnipaConcursosContexto.FactoresSubProyecto.DefaultIfEmpty()
+                    on new
+                    {
+                        PostulanteId = postulante.Id,
+                        EstadoRegistro = EntidadAuditable.EstadoRegistroActivo
+                    } equals new { factor.PostulanteId, factor.EstadoRegistro }
+                join temaFactor in _pnipaConcursosContexto.TemasFactorCritico.DefaultIfEmpty()
+                    on factor.TemaId equals temaFactor.Id
+                join ejecutor in _pnipaConcursosContexto.PostulanteEjecutores.DefaultIfEmpty()
+                    on postulante.Id equals ejecutor.PostulanteId
                 where
                     postulante.EtapaId > 9
                     && postulante.EstadoRegistro == EntidadAuditable.EstadoRegistroActivo
@@ -90,7 +128,7 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.PnipaConcursos
                     PostulanteId = postulante.Id,
                     ProyectoId = proyecto.Id,
                     CodigoEnvioProyecto = postulante.CodigoEnvioProyecto ?? default!,
-                    Ventanilla = postulante.Ventanilla ?? default!,
+                    Ventanilla = postulante.Ventanilla,
                     EntidadProponente = entidad.Nombre ?? default!
                 }
             ).ToListAsync();

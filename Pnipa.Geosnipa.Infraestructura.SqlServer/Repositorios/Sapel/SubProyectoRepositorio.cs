@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pnipa.Geosnipa.Dominio.Entidades.Sapel.SubProyecto;
 using Pnipa.Geosnipa.Dominio.Modelos;
-using Pnipa.Geosnipa.Dominio.Repositorios.Sapel;
+using Pnipa.Geosnipa.Dominio.Repositorios;
 using Pnipa.Geosnipa.Infraestructura.SqlServer.Contextos;
 
 namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.Sapel;
 
-public class SubProyectoRepositorio : ISubProyectoRepositorio
+public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
 {
     private readonly SapelContexto _sapelContexto;
     private readonly PnipaConcursosContexto _pnipaConcursosContexto;

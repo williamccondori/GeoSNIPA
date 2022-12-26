@@ -2,13 +2,13 @@
 using Pnipa.Geosnipa.Dominio.Repositorios;
 using Pnipa.Geosnipa.Infraestructura.SqlServer.Contextos;
 
-namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios;
+namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.Sapel;
 
-public class SapelLecturaRepositorio<T> : ISapelLecturaRepositorio<T> where T : class
+public class LecturaRepositorio<T> : ISapelLecturaRepositorio<T> where T : class
 {
     private readonly SapelContexto _sapelContexto;
 
-    public SapelLecturaRepositorio(SapelContexto sapelContexto)
+    public LecturaRepositorio(SapelContexto sapelContexto)
     {
         _sapelContexto = sapelContexto;
     }

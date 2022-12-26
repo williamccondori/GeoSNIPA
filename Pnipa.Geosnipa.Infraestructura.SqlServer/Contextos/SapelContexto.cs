@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Admisibilidad;
 using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Concurso;
 using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Contrato;
@@ -13,10 +12,7 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Contextos;
 
 public class SapelContexto : DbContext
 {
-    public SapelContexto(
-        DbContextOptions<SapelContexto> options) : base(options)
-    {
-    }
+    public SapelContexto(DbContextOptions<SapelContexto> options) : base(options) { }
 
     public virtual DbSet<OmrRegionEntidad> OmrRegiones { get; set; }
     public virtual DbSet<ConcursoEntidad> Concursos { get; set; }
@@ -34,7 +30,9 @@ public class SapelContexto : DbContext
         modelBuilder.ApplyConfiguration(new ConcursoConfiguracion());
         modelBuilder.ApplyConfiguration(new ConcursoFondoConfiguracion());
         modelBuilder.ApplyConfiguration(new ContratoAdjudicacionConfiguracion());
-        modelBuilder.ApplyConfiguration(new S10ComponenteActividadAlianzaEstrategicaConfiguracion());
+        modelBuilder.ApplyConfiguration(
+            new S10ComponenteActividadAlianzaEstrategicaConfiguracion()
+        );
         modelBuilder.ApplyConfiguration(new S1EspecieConfiguracion());
         modelBuilder.ApplyConfiguration(new S1UbicacionConfiguracion());
         modelBuilder.ApplyConfiguration(new S5AlianzaEstrategicaConfiguracion());
