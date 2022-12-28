@@ -13,7 +13,7 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Configuraciones.PnipaConcurso
             builder.ToTable("ProductoPlanNegocios", "dbo");
             builder.Property(p => p.Id).HasColumnName("ID").IsRequired();
             builder.Property(p => p.PlanNegocioId).HasColumnName("PlanNegociosID");
-
+            builder.Property(p => p.Nombre).HasColumnName("Nombre");
             builder.Property(p => p.UsuarioIdRegistro).HasColumnName("UsuarioIdRegistro");
             builder.Property(p => p.UsuarioIdModifico).HasColumnName("UsuarioIdModifico");
             builder.Property(p => p.FechaRegistro).HasColumnName("FechaRegistro");

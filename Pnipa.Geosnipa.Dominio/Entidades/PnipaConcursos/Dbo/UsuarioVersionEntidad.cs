@@ -2,9 +2,10 @@
 
 namespace Pnipa.Geosnipa.Dominio.Entidades.PnipaConcursos.Dbo
 {
-    public class UsuarioEntidad : EntidadAuditable
+    public class UsuarioVersionEntidad : EntidadAuditable
     {
         public int Id { get; set; }
-        public string? Email { get; set; }
+        public int UsuarioId { get; set; }
+        public bool? Vigente { get; set; }
     }
 }

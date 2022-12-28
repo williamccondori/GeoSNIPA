@@ -10,5 +10,7 @@ namespace Pnipa.Geosnipa.Dominio.Entidades.PnipaConcursos.Dbo
         public int Ventanilla { get; set; }
         public int UsuarioId { get; set; }
         public int ConvocatoriaId { get; set; }
+        public string? LinkImagenInicial { get; set; }
+        public string? LinkImagenes { get; set; }
     }
 }

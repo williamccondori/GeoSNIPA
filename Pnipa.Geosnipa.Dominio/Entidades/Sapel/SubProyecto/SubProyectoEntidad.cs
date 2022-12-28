@@ -1,6 +1,8 @@
-﻿namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.SubProyecto;
+﻿using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido;
 
-public class SubProyectoEntidad
+namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.SubProyecto;
+
+public class SubProyectoEntidad : EntidadAuditableSapel
 {
     public int SubProyectoId { get; set; }
     public int EntidadId { get; set; }
@@ -12,7 +14,6 @@ public class SubProyectoEntidad
     public int EstadoId { get; set; }
     public string? EstadoNombre { get; set; }
     public string? S1CodigoSubProyecto { get; set; }
-    public char AudEstadoRegistro { get; set; }
     public int S9CantidadAgentesProductivosHombres { get; set; }
     public int S9CantidadAgentesProductivosMujeres { get; set; }
     public int S9CantidadAgentesInnovacionHombres { get; set; }

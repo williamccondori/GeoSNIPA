@@ -1,6 +1,8 @@
-﻿namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.SubProyecto;
+﻿using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido;
 
-public class S1EspecieEntidad
+namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.SubProyecto;
+
+public class S1EspecieEntidad : EntidadAuditableSapel
 {
     public const string TipoEspecieP = "P";
 
@@ -10,5 +12,4 @@ public class S1EspecieEntidad
     public string? EspecieNombre { get; set; }
     public string? EspecieOtros { get; set; }
     public string? TipoEspecie { get; set; }
-    public char AudEstadoRegistro { get; set; }
 }

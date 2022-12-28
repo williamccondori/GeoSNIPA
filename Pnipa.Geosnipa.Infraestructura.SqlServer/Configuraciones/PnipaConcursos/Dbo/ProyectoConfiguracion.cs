@@ -12,7 +12,8 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Configuraciones.PnipaConcurso
             builder.ToTable("Proyecto", "dbo");
             builder.Property(p => p.Id).HasColumnName("ID").IsRequired();
             builder.Property(p => p.PostulanteId).HasColumnName("PostulanteID");
-
+            builder.Property(p => p.Titulo).HasColumnName("Titulo");
+            builder.Property(p => p.FechaInicioReal).HasColumnName("FechaInicioReal");
             builder.Property(p => p.UsuarioIdRegistro).HasColumnName("UsuarioIdRegistro");
             builder.Property(p => p.UsuarioIdModifico).HasColumnName("UsuarioIdModifico");
             builder.Property(p => p.FechaRegistro).HasColumnName("FechaRegistro");

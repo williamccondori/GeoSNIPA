@@ -1,10 +1,11 @@
-﻿namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.SubProyecto;
+﻿using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido;
 
-public class S10ComponenteActividadAlianzaEstrategicaEntidad
+namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.SubProyecto;
+
+public class S10ComponenteActividadAlianzaEstrategicaEntidad : EntidadAuditableSapel
 {
     public int ComponenteActividadAlianzaEstrategicaId { get; set; }
     public int ComponenteActividadId { get; set; }
     public int AlianzaEstrategicaId { get; set; }
     public decimal Aporte { get; set; }
-    public char AudEstadoRegistro { get; set; }
 }

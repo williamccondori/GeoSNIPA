@@ -17,6 +17,6 @@ public class SapelUbigeoConfiguracion : IEntityTypeConfiguration<SapelUbigeoEnti
         builder.Property(p => p.DepartamentoNombre).HasColumnName("DPTO_NOMBRE");
         builder.Property(p => p.ProvinciaNombre).HasColumnName("PROV_NOMBRE");
         builder.Property(p => p.DistritoNombre).HasColumnName("DIST_NOMBRE");
-        builder.Property(p => p.AudEstadoRegistro).HasColumnName("AudEstadoRegistro").IsRequired();
+        builder.Property(p => p.EstadoRegistro).HasColumnName("AudEstadoRegistro").IsRequired();
     }
 }

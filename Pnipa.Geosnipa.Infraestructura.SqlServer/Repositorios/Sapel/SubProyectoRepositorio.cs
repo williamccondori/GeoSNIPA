@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido;
 using Pnipa.Geosnipa.Dominio.Entidades.Sapel.SubProyecto;
 using Pnipa.Geosnipa.Dominio.Modelos;
+using Pnipa.Geosnipa.Dominio.Modelos.Sapel;
 using Pnipa.Geosnipa.Dominio.Repositorios;
 using Pnipa.Geosnipa.Infraestructura.SqlServer.Contextos;
 
@@ -18,6 +20,18 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
     {
         _sapelContexto = sapelContexto;
         _pnipaConcursosContexto = pnipaConcursosContexto;
+    }
+
+    #region Métodos estáticos
+
+    public static string ObtenerCodigoSubProyecto(
+        string? tipoFondoNombre,
+        string? tipoSubProyectoSiglas,
+        string s1CodigoSubProyecto
+    )
+    {
+        return tipoFondoNombre?[..3] + "-" + tipoSubProyectoSiglas + "-" + s1CodigoSubProyecto
+            ?? default!;
     }
 
     private static string ObtenerNombreOficinaMacroRegional(int ormId)
@@ -47,17 +61,19 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
         return aporte?.MontoAporte ?? decimal.Zero;
     }
 
+    #endregion
+
     public async Task<IEnumerable<ReporteVisorModelo>> ObtenerReporteParaGeoVisor()
     {
         var fondos = await (
             from fondo in _pnipaConcursosContexto.SapelFondos
-            where fondo.AudEstadoRegistro == '1'
+            where fondo.EstadoRegistro == EntidadAuditableSapel.EstadoRegistroActivo
             select fondo
         ).ToListAsync();
 
         var ubigeos = await (
             from ubigeo in _pnipaConcursosContexto.SapelUbigeos
-            where ubigeo.AudEstadoRegistro == '1'
+            where ubigeo.EstadoRegistro == EntidadAuditableSapel.EstadoRegistroActivo
             select ubigeo
         ).ToListAsync();
 
@@ -65,7 +81,7 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
             from especie in _sapelContexto.Especies
             where
                 especie.TipoEspecie == S1EspecieEntidad.TipoEspecieP
-                && especie.AudEstadoRegistro == '1'
+                && especie.EstadoRegistro == EntidadAuditableSapel.EstadoRegistroActivo
             group especie by new { especie.SubProyectoId, especie.TipoEspecie } into agrupador
             select new SubProyectosEspecieModelo
             {
@@ -80,8 +96,8 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
                 on new
                 {
                     alianzaEstrategica.AlianzaEstrategicaId,
-                    AudEstadoRegistro = '1'
-                } equals new { aporte.AlianzaEstrategicaId, aporte.AudEstadoRegistro }
+                    EstadoRegistro = EntidadAuditableSapel.EstadoRegistroActivo
+                } equals new { aporte.AlianzaEstrategicaId, aporte.EstadoRegistro }
             group aporte by new
             {
                 alianzaEstrategica.SubProyectoId,
@@ -98,57 +114,71 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
         var subProyectos = await (
             from subProyecto in _sapelContexto.SubProyectos
             join concursoFondo in _sapelContexto.ConcursoFondos
-                on new { subProyecto.ConcursoFondoId, AudEstadoRegistro = '1' } equals new
+                on new
                 {
-                    concursoFondo.ConcursoFondoId,
-                    concursoFondo.AudEstadoRegistro
-                }
+                    subProyecto.ConcursoFondoId,
+                    EstadoRegistro = EntidadAuditableSapel.EstadoRegistroActivo
+                } equals new { concursoFondo.ConcursoFondoId, concursoFondo.EstadoRegistro }
             join contrato in _sapelContexto.Concursos
-                on new { concursoFondo.ConcursoId, AudEstadoRegistro = '1' } equals new
+                on new
                 {
-                    contrato.ConcursoId,
-                    contrato.AudEstadoRegistro
-                }
+                    concursoFondo.ConcursoId,
+                    EstadoRegistro = EntidadAuditableSapel.EstadoRegistroActivo
+                } equals new { contrato.ConcursoId, contrato.EstadoRegistro }
             join contratoAdjudicacion in _sapelContexto.ContratosAdjudicacion
-                on new { subProyecto.SubProyectoId, AudEstadoRegistro = '1' } equals new
-                {
-                    contratoAdjudicacion.SubProyectoId,
-                    contratoAdjudicacion.AudEstadoRegistro
-                }
-            join ubicacion in _sapelContexto.S1Ubicaciones.DefaultIfEmpty()
                 on new
                 {
                     subProyecto.SubProyectoId,
-                    TipoUbicacion = "P",
-                    AudEstadoRegistro = '1'
+                    EstadoRegistro = EntidadAuditableSapel.EstadoRegistroActivo
+                } equals new
+                {
+                    contratoAdjudicacion.SubProyectoId,
+                    contratoAdjudicacion.EstadoRegistro
+                }
+            join ubicacion in _sapelContexto.S1Ubicaciones
+                on new
+                {
+                    subProyecto.SubProyectoId,
+                    TipoUbicacion = S1UbicacionEntidad.TipoUbicacionP,
+                    EstadoRegistro = EntidadAuditableSapel.EstadoRegistroActivo
                 } equals new
                 {
                     ubicacion.SubProyectoId,
                     ubicacion.TipoUbicacion,
-                    ubicacion.AudEstadoRegistro
+                    ubicacion.EstadoRegistro
                 }
-            join om in _sapelContexto.OmrRegiones.DefaultIfEmpty()
-                on new { ubicacion.DepartamentoId, AudEstadoRegistro = '1' } equals new
+                into S1UbicacionesLeftJoin
+            from ubicacion in S1UbicacionesLeftJoin.DefaultIfEmpty()
+            join oficinaMacroRegional in _sapelContexto.OmrRegiones
+                on new
                 {
-                    om.DepartamentoId,
-                    om.AudEstadoRegistro
+                    ubicacion.DepartamentoId,
+                    EstadoRegistro = EntidadAuditableSapel.EstadoRegistroActivo
+                } equals new
+                {
+                    oficinaMacroRegional.DepartamentoId,
+                    oficinaMacroRegional.EstadoRegistro
                 }
-            join alianzaEstrategica in _sapelContexto.AlianzasEstrategicas.DefaultIfEmpty()
+                into oficinaMacroRegionalLeftJoin
+            from oficinaMacroRegional in oficinaMacroRegionalLeftJoin.DefaultIfEmpty()
+            join alianzaEstrategica in _sapelContexto.AlianzasEstrategicas
                 on new
                 {
                     subProyecto.SubProyectoId,
-                    AudEstadoRegistro = '1',
-                    TmDetDesctipcionRolConcurso = "Entidad Proponente"
+                    TmDetDesctipcionRolConcurso = "Entidad Proponente",
+                    EstadoRegistro = EntidadAuditableSapel.EstadoRegistroActivo
                 } equals new
                 {
                     alianzaEstrategica.SubProyectoId,
-                    alianzaEstrategica.AudEstadoRegistro,
-                    alianzaEstrategica.TmDetDesctipcionRolConcurso
+                    alianzaEstrategica.TmDetDesctipcionRolConcurso,
+                    alianzaEstrategica.EstadoRegistro
                 }
+                into alianzaEstrategicaLeftJoin
+            from alianzaEstrategica in alianzaEstrategicaLeftJoin.DefaultIfEmpty()
             where
                 subProyecto.SubProyectoId == subProyecto.SubProyectoIdPadre
                 && subProyecto.EstadoId >= 1339
-            select new SubProyectosSapelModelo
+            select new SubProyectosModelo
             {
                 SubProyectoId = subProyecto.SubProyectoId,
                 FondoId = concursoFondo.FondoId,
@@ -161,7 +191,7 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
                 Longitud = ubicacion.Longitud ?? default!,
                 Latitud = ubicacion.Latitud ?? default!,
                 S1Titulo = subProyecto.S1Titulo ?? default!,
-                OmrId = om.OmrId,
+                OmrId = oficinaMacroRegional.OmrId,
                 S1TmDetalleDescripcionTema = subProyecto.S1TmDetalleDescripcionTema ?? default!,
                 S1TmDetalleDescripcionEslabon =
                     subProyecto.S1TmDetalleDescripcionEslabon ?? default!,
@@ -197,35 +227,27 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
                     ubigeo.ProvinciaId,
                     ubigeo.DistritoId
                 }
-                into ubigeoTemporal
-            from ubigeo in ubigeoTemporal.DefaultIfEmpty()
+                into ubigeoLeftJoin
+            from ubigeo in ubigeoLeftJoin.DefaultIfEmpty()
             join especie in especies
                 on subProyecto.SubProyectoId equals especie.SubProyectoId
-                into especieTemporal
-            from especie in especieTemporal.DefaultIfEmpty()
+                into especieLeftJoin
+            from especie in especieLeftJoin.DefaultIfEmpty()
             select new ReporteVisorModelo
             {
                 S1CodigoSubProyecto = subProyecto.S1CodigoSubProyecto,
-                CodigoSubProyecto =
-                    fondo.TipoFondoNombre?[..3]
-                    + "-"
-                    + fondo.TipoSubProyectoSiglas
-                    + "-"
-                    + subProyecto.S1CodigoSubProyecto,
-                Convocatoria = subProyecto.ConcursoNumero.Replace(
-                    "CONC-2020-0001",
-                    "PNIPA 2020-2021"
+                CodigoSubProyecto = ObtenerCodigoSubProyecto(
+                    fondo.TipoFondoNombre,
+                    fondo.TipoSubProyectoSiglas,
+                    subProyecto.S1CodigoSubProyecto
                 ),
-                Ventanilla = subProyecto.NombreConcurso.Replace(
-                    "Ventanilla 01",
-                    "Primera ventanilla"
-                ),
+                Convocatoria = subProyecto.Convocatoria,
+                Ventanilla = subProyecto.Ventanilla,
                 InstitucionSuvencionadora = ReporteVisorModelo.InstitucionSubencionadoraPnipa,
                 Ubigeo = ubigeo?.UbigeoId ?? default!,
                 Longitud = subProyecto.Longitud,
                 Latitud = subProyecto.Latitud,
-                SubSector =
-                    fondo.TipoSubProyectoNombre?.Replace("Subproyectos de ", "") ?? default!,
+                SubSector = fondo.SubSector,
                 TipoFondo = fondo.TipoFondoNombre ?? default!,
                 TituloSubproyecto = subProyecto.S1Titulo,
                 Departamento = ubigeo?.DepartamentoNombre ?? default!,
@@ -236,7 +258,7 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
                 Tema = subProyecto.S1TmDetalleDescripcionTema,
                 EslabonCadena = subProyecto.S1TmDetalleDescripcionEslabon,
                 Especies = especie?.EspecieNombre ?? default!,
-                Usuario = subProyecto.UsuarioId.ToString(),
+                Usuario = subProyecto.Usuario,
                 EntidadProponente = subProyecto.RazonSocial,
                 EstadoEjecucion = subProyecto.EstadoNombre,
                 LinkImagenes = string.Empty,

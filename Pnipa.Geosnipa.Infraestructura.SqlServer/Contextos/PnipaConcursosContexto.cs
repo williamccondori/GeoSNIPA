@@ -20,7 +20,6 @@ public class PnipaConcursosContexto : DbContext
     public virtual DbSet<ValorTablaEntidad> ValoresTabla { get; set; }
     public virtual DbSet<VistaAmbitoIntervencionEntidad> VistaAmbitosIntervencion { get; set; }
     public virtual DbSet<VistaConvocatoriaEntidad> VistaConvocatorias { get; set; }
-
     public virtual DbSet<PlanNegocioEntidad> PlanesNegocio { get; set; }
     public virtual DbSet<ProductoPlanNegocioEntidad> ProductosPlanNegocio { get; set; }
     public virtual DbSet<MacroRegionEntidad> MacroRegiones { get; set; }
@@ -28,6 +27,10 @@ public class PnipaConcursosContexto : DbContext
     public virtual DbSet<FactorSubProyectoEntidad> FactoresSubProyecto { get; set; }
     public virtual DbSet<TemaFactorProyectoCritico> TemasFactorCritico { get; set; }
     public virtual DbSet<PostulanteEjecutorEntidad> PostulanteEjecutores { get; set; }
+    public virtual DbSet<AdjudicacionEntidad> Adjudicaciones { get; set; }
+    public virtual DbSet<UsuarioVersionEntidad> UsuarioVersiones { get; set; }
+    public virtual DbSet<SegProyectoPasoCriticoEntidad> SegProyectoPasosCriticos { get; set; }
+    public virtual DbSet<EstadoSubProyectoEntidad> EstadosSubProyecto { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -42,7 +45,6 @@ public class PnipaConcursosContexto : DbContext
         modelBuilder.ApplyConfiguration(new ValorTablaConfiguracion());
         modelBuilder.ApplyConfiguration(new VistaAmbitoIntervencionConfiguracion());
         modelBuilder.ApplyConfiguration(new VistaConvocatoriaConfiguracion());
-
         modelBuilder.ApplyConfiguration(new PlanNegocioConfiguracion());
         modelBuilder.ApplyConfiguration(new ProductoPlanNegocioConfiguracion());
         modelBuilder.ApplyConfiguration(new MacroRegionConfiguracion());
@@ -50,5 +52,9 @@ public class PnipaConcursosContexto : DbContext
         modelBuilder.ApplyConfiguration(new FactorSubProyectoConfiguracion());
         modelBuilder.ApplyConfiguration(new TemaFactorCriticoConfiguracion());
         modelBuilder.ApplyConfiguration(new PostulanteEjecutorConfiguracion());
+        modelBuilder.ApplyConfiguration(new AdjudicacionConfiguracion());
+        modelBuilder.ApplyConfiguration(new UsuarioVersionConfiguracion());
+        modelBuilder.ApplyConfiguration(new SegProyectoPasoCriticoConfiguracion());
+        modelBuilder.ApplyConfiguration(new EstadoSubProyectoConfiguracion());
     }
 }

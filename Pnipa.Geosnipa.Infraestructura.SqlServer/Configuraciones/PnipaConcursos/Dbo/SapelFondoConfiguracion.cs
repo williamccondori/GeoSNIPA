@@ -15,6 +15,6 @@ public class SapelFondoConfiguracion : IEntityTypeConfiguration<SapelFondoEntida
         builder.Property(p => p.TipoFondoNombre).HasColumnName("TIPOFONDO_NOMBRE");
         builder.Property(p => p.TipoSubProyectoSiglas).HasColumnName("TIPOSUBPROYECTO_SIGLAS");
         builder.Property(p => p.TipoSubProyectoNombre).HasColumnName("TIPOSUBPROYECTO_NOMBRE");
-        builder.Property(p => p.AudEstadoRegistro).HasColumnName("AudEstadoRegistro").IsRequired();
+        builder.Property(p => p.EstadoRegistro).HasColumnName("AudEstadoRegistro").IsRequired();
     }
 }

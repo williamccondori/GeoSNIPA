@@ -1,9 +1,10 @@
-﻿namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.Concurso;
+﻿using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido;
 
-public class ConcursoFondoEntidad
+namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.Concurso;
+
+public class ConcursoFondoEntidad : EntidadAuditableSapel
 {
     public int ConcursoFondoId { get; set; }
     public int FondoId { get; set; }
     public int ConcursoId { get; set; }
-    public char AudEstadoRegistro { get; set; }
 }

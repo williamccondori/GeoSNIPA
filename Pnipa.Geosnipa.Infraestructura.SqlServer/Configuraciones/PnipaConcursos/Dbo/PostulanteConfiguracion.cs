@@ -16,7 +16,8 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Configuraciones.PnipaConcurso
             builder.Property(p => p.Ventanilla).HasColumnName("ventanilla");
             builder.Property(p => p.UsuarioId).HasColumnName("UsuarioID");
             builder.Property(p => p.ConvocatoriaId).HasColumnName("ConvocatoriaID");
-
+            builder.Property(p => p.LinkImagenInicial).HasColumnName("link_imagen_inicial");
+            builder.Property(p => p.LinkImagenes).HasColumnName("link_imagenes");
             builder.Property(p => p.UsuarioIdRegistro).HasColumnName("UsuarioIdRegistro");
             builder.Property(p => p.UsuarioIdModifico).HasColumnName("UsuarioIdModifico");
             builder.Property(p => p.FechaRegistro).HasColumnName("FechaRegistro");

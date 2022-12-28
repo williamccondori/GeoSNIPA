@@ -8,7 +8,7 @@ public class S1UbicacionConfiguracion : IEntityTypeConfiguration<S1UbicacionEnti
 {
     public void Configure(EntityTypeBuilder<S1UbicacionEntidad> builder)
     {
-        builder.HasKey(p => new {p.UbicacionId});
+        builder.HasKey(p => new { p.UbicacionId });
         builder.ToTable("S1UBICACION", "SUBPROYECTO");
         builder.Property(p => p.UbicacionId).HasColumnName("UBICACION_ID").IsRequired();
         builder.Property(p => p.SubProyectoId).HasColumnName("SUBPROYECTO_ID").IsRequired();
@@ -19,6 +19,6 @@ public class S1UbicacionConfiguracion : IEntityTypeConfiguration<S1UbicacionEnti
         builder.Property(p => p.NombreCompleto).HasColumnName("UBI_NOMBRECOMPLETO");
         builder.Property(p => p.Latitud).HasColumnName("LATITUD");
         builder.Property(p => p.Longitud).HasColumnName("LONGITUD");
-        builder.Property(p => p.AudEstadoRegistro).HasColumnName("AudEstadoRegistro").IsRequired();
+        builder.Property(p => p.EstadoRegistro).HasColumnName("AudEstadoRegistro").IsRequired();
     }
 }

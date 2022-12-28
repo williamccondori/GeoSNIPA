@@ -1,6 +1,8 @@
-﻿namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.Contrato;
+﻿using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido;
 
-public class ContratoAdjudicacionEntidad
+namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.Contrato;
+
+public class ContratoAdjudicacionEntidad : EntidadAuditableSapel
 {
     public int ContratoAdjudicacionId { get; set; }
     public string? Nombre { get; set; }
@@ -8,5 +10,4 @@ public class ContratoAdjudicacionEntidad
     public DateTime Fecha { get; set; }
     public string? ComentarioFirmado { get; set; }
     public int SubProyectoId { get; set; }
-    public char AudEstadoRegistro { get; set; }
 }

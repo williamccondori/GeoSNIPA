@@ -1,6 +1,8 @@
-﻿namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.SubProyecto;
+﻿using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido;
 
-public class S1UbicacionEntidad
+namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.SubProyecto;
+
+public class S1UbicacionEntidad : EntidadAuditableSapel
 {
     public int UbicacionId { get; set; }
     public int SubProyectoId { get; set; }
@@ -11,5 +13,10 @@ public class S1UbicacionEntidad
     public string? NombreCompleto { get; set; }
     public string? Latitud { get; set; }
     public string? Longitud { get; set; }
-    public char AudEstadoRegistro { get; set; }
+
+    #region Constantes
+
+    public const string TipoUbicacionP = "P";
+
+    #endregion
 }

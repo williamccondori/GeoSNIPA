@@ -1,6 +1,6 @@
-﻿namespace Pnipa.Geosnipa.Dominio.Modelos;
+﻿namespace Pnipa.Geosnipa.Dominio.Modelos.Sapel;
 
-public class SubProyectosSapelModelo
+public class SubProyectosModelo
 {
     public int SubProyectoId { get; init; }
     public int FondoId { get; init; }
@@ -27,4 +27,8 @@ public class SubProyectosSapelModelo
     public int S9CantidadAgentesProductivosMujeres { get; init; }
     public int S9CantidadAgentesInnovacionHombres { get; init; }
     public int S9CantidadAgentesInnovacionMujeres { get; init; }
+
+    public string Ventanilla => NombreConcurso.Replace("Ventanilla 01", "Primera ventanilla");
+    public string Convocatoria => ConcursoNumero.Replace("CONC-2020-0001", "PNIPA 2020-2021");
+    public string Usuario => UsuarioId.ToString();
 }
