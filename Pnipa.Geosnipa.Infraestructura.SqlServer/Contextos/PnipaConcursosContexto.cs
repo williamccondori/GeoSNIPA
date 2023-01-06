@@ -31,6 +31,12 @@ public class PnipaConcursosContexto : DbContext
     public virtual DbSet<UsuarioVersionEntidad> UsuarioVersiones { get; set; }
     public virtual DbSet<SegProyectoPasoCriticoEntidad> SegProyectoPasosCriticos { get; set; }
     public virtual DbSet<EstadoSubProyectoEntidad> EstadosSubProyecto { get; set; }
+    public virtual DbSet<AporteEntidadPasoCriticoEntidad> AportesEntidadPasoCritico { get; set; }
+    public virtual DbSet<CronogramaPoaFinancieraEntidad> CronogramasPoaFinanciera { get; set; }
+    public virtual DbSet<PasoCriticoEntidad> PasosCritico { get; set; }
+    public virtual DbSet<PoaEntidad> Poas { get; set; }
+    public virtual DbSet<PresupuestoEntidadEntidad> PresupuestosEntidad { get; set; }
+    public virtual DbSet<PresupuestoEntidad> Presupuestos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -56,5 +62,11 @@ public class PnipaConcursosContexto : DbContext
         modelBuilder.ApplyConfiguration(new UsuarioVersionConfiguracion());
         modelBuilder.ApplyConfiguration(new SegProyectoPasoCriticoConfiguracion());
         modelBuilder.ApplyConfiguration(new EstadoSubProyectoConfiguracion());
+        modelBuilder.ApplyConfiguration(new AporteEntidadPasoCriticoConfiguracion());
+        modelBuilder.ApplyConfiguration(new CronogramaPoaFinancieraConfiguracion());
+        modelBuilder.ApplyConfiguration(new PasoCriticoConfiguracion());
+        modelBuilder.ApplyConfiguration(new PoaConfiguracion());
+        modelBuilder.ApplyConfiguration(new PresupuestoEntidadConfiguracion());
+        modelBuilder.ApplyConfiguration(new PresupuestoConfiguracion());
     }
 }

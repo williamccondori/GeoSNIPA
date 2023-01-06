@@ -3,13 +3,15 @@ using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido;
 using Pnipa.Geosnipa.Dominio.Entidades.Sapel.SubProyecto;
 using Pnipa.Geosnipa.Dominio.Modelos;
 using Pnipa.Geosnipa.Dominio.Modelos.Sapel;
-using Pnipa.Geosnipa.Dominio.Repositorios;
+using Pnipa.Geosnipa.Dominio.Repositorios.Sapel;
 using Pnipa.Geosnipa.Infraestructura.SqlServer.Contextos;
 
 namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.Sapel;
 
-public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
+public class SubProyectoRepositorio : ISubProyectoRepositorio
 {
+    private const string InstitucionSubencionadoraPnipa = "PNIPA";
+
     private readonly SapelContexto _sapelContexto;
     private readonly PnipaConcursosContexto _pnipaConcursosContexto;
 
@@ -27,11 +29,10 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
     public static string ObtenerCodigoSubProyecto(
         string? tipoFondoNombre,
         string? tipoSubProyectoSiglas,
-        string s1CodigoSubProyecto
+        string? s1CodigoSubProyecto
     )
     {
-        return tipoFondoNombre?[..3] + "-" + tipoSubProyectoSiglas + "-" + s1CodigoSubProyecto
-            ?? default!;
+        return $"{tipoFondoNombre?[..3]}-{tipoSubProyectoSiglas}-{s1CodigoSubProyecto}";
     }
 
     private static string ObtenerNombreOficinaMacroRegional(int ormId)
@@ -49,21 +50,21 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
         };
     }
 
-    public static decimal ObtenerMontoAporte(
-        List<AporteAlianzaEstrategicaModelo> aportes,
-        string entidad,
+    private static decimal ObtenerMontoAporte(
+        List<AporteModelo> aportes,
+        string entidadAsociada,
         int subProyectoId
     )
     {
         var aporte = aportes.FirstOrDefault(
-            p => p.SubProyectoId == subProyectoId && p.Entidad == entidad
+            p => p.SubProyectoId == subProyectoId && p.Entidad == entidadAsociada
         );
         return aporte?.MontoAporte ?? decimal.Zero;
     }
 
     #endregion
 
-    public async Task<IEnumerable<ReporteVisorModelo>> ObtenerReporteParaGeoVisor()
+    public async Task<IEnumerable<ReporteParaGeoVisorModelo>> ObtenerReporteParaGeoVisor()
     {
         var fondos = await (
             from fondo in _pnipaConcursosContexto.SapelFondos
@@ -83,10 +84,10 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
                 especie.TipoEspecie == S1EspecieEntidad.TipoEspecieP
                 && especie.EstadoRegistro == EntidadAuditableSapel.EstadoRegistroActivo
             group especie by new { especie.SubProyectoId, especie.TipoEspecie } into agrupador
-            select new SubProyectosEspecieModelo
+            select new EspecieModelo
             {
                 SubProyectoId = agrupador.Key.SubProyectoId,
-                EspecieNombre = agrupador.Max(x => x.EspecieNombre) ?? default!
+                Nombre = agrupador.Max(grupo => grupo.EspecieNombre)
             }
         ).ToListAsync();
 
@@ -103,11 +104,11 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
                 alianzaEstrategica.SubProyectoId,
                 alianzaEstrategica.TmDetDesctipcionRolConcurso
             } into agrupador
-            select new AporteAlianzaEstrategicaModelo
+            select new AporteModelo
             {
                 SubProyectoId = agrupador.Key.SubProyectoId,
                 Entidad = agrupador.Key.TmDetDesctipcionRolConcurso,
-                MontoAporte = agrupador.Sum(x => x.Aporte)
+                MontoAporte = agrupador.Sum(grupo => grupo.Aporte)
             }
         ).ToListAsync();
 
@@ -165,7 +166,7 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
                 on new
                 {
                     subProyecto.SubProyectoId,
-                    TmDetDesctipcionRolConcurso = "Entidad Proponente",
+                    TmDetDesctipcionRolConcurso = S5AlianzaEstrategicaEntidad.EntidadProponente,
                     EstadoRegistro = EntidadAuditableSapel.EstadoRegistroActivo
                 } equals new
                 {
@@ -178,31 +179,30 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
             where
                 subProyecto.SubProyectoId == subProyecto.SubProyectoIdPadre
                 && subProyecto.EstadoId >= 1339
-            select new SubProyectosModelo
+            select new Dominio.Modelos.Sapel.SubProyectoModelo
             {
                 SubProyectoId = subProyecto.SubProyectoId,
                 FondoId = concursoFondo.FondoId,
-                DepartamentoId = ubicacion.DepartamentoId ?? default!,
-                ProvinciaId = ubicacion.ProvinciaId ?? default!,
-                DistritoId = ubicacion.DistritoId ?? default!,
-                S1CodigoSubProyecto = subProyecto.S1CodigoSubProyecto ?? default!,
-                ConcursoNumero = contrato.ConcursoNumero ?? default!,
-                NombreConcurso = contrato.NombreConcurso ?? default!,
-                Longitud = ubicacion.Longitud ?? default!,
-                Latitud = ubicacion.Latitud ?? default!,
-                S1Titulo = subProyecto.S1Titulo ?? default!,
+                DepartamentoId = ubicacion.DepartamentoId,
+                ProvinciaId = ubicacion.ProvinciaId,
+                DistritoId = ubicacion.DistritoId,
+                S1CodigoSubProyecto = subProyecto.S1CodigoSubProyecto,
+                ConcursoNumero = contrato.ConcursoNumero,
+                NombreConcurso = contrato.NombreConcurso,
+                Longitud = ubicacion.Longitud,
+                Latitud = ubicacion.Latitud,
+                S1Titulo = subProyecto.S1Titulo,
                 OmrId = oficinaMacroRegional.OmrId,
-                S1TmDetalleDescripcionTema = subProyecto.S1TmDetalleDescripcionTema ?? default!,
-                S1TmDetalleDescripcionEslabon =
-                    subProyecto.S1TmDetalleDescripcionEslabon ?? default!,
+                S1TmDetalleDescripcionTema = subProyecto.S1TmDetalleDescripcionTema,
+                S1TmDetalleDescripcionEslabon = subProyecto.S1TmDetalleDescripcionEslabon,
                 UsuarioId = subProyecto.UsuarioId,
-                RazonSocial = alianzaEstrategica.RazonSocial ?? default!,
-                EstadoNombre = subProyecto.EstadoNombre ?? default!,
-                CodigoContrato = contratoAdjudicacion.Nombre ?? default!,
+                RazonSocial = alianzaEstrategica.RazonSocial,
+                EstadoNombre = subProyecto.EstadoNombre,
+                CodigoContrato = contratoAdjudicacion.Nombre,
                 AportePnipa = subProyecto.AportePnipa,
                 TotalAporte = subProyecto.TotalAporte,
                 TmDetDesctipcionCategoriaActividad =
-                    alianzaEstrategica.TmDetDesctipcionCategoriaActividad ?? default!,
+                    alianzaEstrategica.TmDetDesctipcionCategoriaActividad,
                 S9CantidadAgentesProductivosHombres =
                     subProyecto.S9CantidadAgentesProductivosHombres,
                 S9CantidadAgentesProductivosMujeres =
@@ -212,7 +212,7 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
             }
         ).ToListAsync();
 
-        var reporteParaGeoVisor = (
+        return (
             from subProyecto in subProyectos
             join fondo in fondos on subProyecto.FondoId equals fondo.FondoId
             join ubigeo in ubigeos
@@ -233,9 +233,9 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
                 on subProyecto.SubProyectoId equals especie.SubProyectoId
                 into especieLeftJoin
             from especie in especieLeftJoin.DefaultIfEmpty()
-            select new ReporteVisorModelo
+            select new ReporteParaGeoVisorModelo
             {
-                S1CodigoSubProyecto = subProyecto.S1CodigoSubProyecto,
+                Id = subProyecto.S1CodigoSubProyecto,
                 CodigoSubProyecto = ObtenerCodigoSubProyecto(
                     fondo.TipoFondoNombre,
                     fondo.TipoSubProyectoSiglas,
@@ -243,54 +243,49 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
                 ),
                 Convocatoria = subProyecto.Convocatoria,
                 Ventanilla = subProyecto.Ventanilla,
-                InstitucionSuvencionadora = ReporteVisorModelo.InstitucionSubencionadoraPnipa,
-                Ubigeo = ubigeo?.UbigeoId ?? default!,
+                InstitucionSuvencionadora = InstitucionSubencionadoraPnipa,
+                Ubigeo = ubigeo?.UbigeoId,
                 Longitud = subProyecto.Longitud,
                 Latitud = subProyecto.Latitud,
                 SubSector = fondo.SubSector,
-                TipoFondo = fondo.TipoFondoNombre ?? default!,
+                TipoFondo = fondo.TipoFondoNombre,
                 TituloSubproyecto = subProyecto.S1Titulo,
-                Departamento = ubigeo?.DepartamentoNombre ?? default!,
-                Provincia = ubigeo?.ProvinciaNombre ?? default!,
-                Distrito = ubigeo?.DistritoNombre ?? default!,
+                Departamento = ubigeo?.DepartamentoNombre,
+                Provincia = ubigeo?.ProvinciaNombre,
+                Distrito = ubigeo?.DistritoNombre,
                 Omr = ObtenerNombreOficinaMacroRegional(subProyecto.OmrId),
-                Bonificacion = decimal.Zero,
+                Bonificacion = 0,
                 Tema = subProyecto.S1TmDetalleDescripcionTema,
                 EslabonCadena = subProyecto.S1TmDetalleDescripcionEslabon,
-                Especies = especie?.EspecieNombre ?? default!,
+                Especies = especie?.Nombre,
                 Usuario = subProyecto.Usuario,
                 EntidadProponente = subProyecto.RazonSocial,
                 EstadoEjecucion = subProyecto.EstadoNombre,
-                LinkImagenes = string.Empty,
-                LinkImagenInicial = string.Empty,
-                CodigoContrato = subProyecto.CodigoContrato,
+                NumeroContrato = subProyecto.CodigoContrato,
                 AporteEntidadAsociada = ObtenerMontoAporte(
                     aportes,
-                    AporteAlianzaEstrategicaModelo.EntidadAsociada,
+                    S5AlianzaEstrategicaEntidad.EntidadAsociada,
                     subProyecto.SubProyectoId
                 ),
                 AporteEntidadColaboradora = ObtenerMontoAporte(
                     aportes,
-                    AporteAlianzaEstrategicaModelo.EntidadColaboradora,
+                    S5AlianzaEstrategicaEntidad.EntidadColaboradora,
                     subProyecto.SubProyectoId
                 ),
                 AporteEntidadProponente = ObtenerMontoAporte(
                     aportes,
-                    AporteAlianzaEstrategicaModelo.EntidadProponente,
+                    S5AlianzaEstrategicaEntidad.EntidadProponente,
                     subProyecto.SubProyectoId
                 ),
                 AportePnipa = subProyecto.AportePnipa,
                 TotalSubProyecto = subProyecto.TotalAporte,
-                Hito = ReporteVisorModelo.PrimerHito,
+                Hito = "H1",
                 DesenbolsoPnipa = decimal.Zero,
                 TipoEntidadParticipa = subProyecto.TmDetDesctipcionCategoriaActividad,
-                BeneficioAmbiental = string.Empty,
-                TemaAmbiental = string.Empty,
-                BeneficioSocial = string.Empty,
-                NroBeneficiariosMujeres =
+                NumeroBeneficiariosMujeres =
                     subProyecto.S9CantidadAgentesProductivosMujeres
                     + subProyecto.S9CantidadAgentesInnovacionMujeres,
-                NroBeneficiariosHombres =
+                NumeroBeneficiariosHombres =
                     subProyecto.S9CantidadAgentesProductivosHombres
                     + subProyecto.S9CantidadAgentesInnovacionHombres,
                 TotalBeneficiarios =
@@ -298,11 +293,9 @@ public class SubProyectoRepositorio : ISapelSubProyectoRepositorio
                     + subProyecto.S9CantidadAgentesInnovacionMujeres
                     + subProyecto.S9CantidadAgentesProductivosHombres
                     + subProyecto.S9CantidadAgentesInnovacionHombres,
-                SubProyectoEmblematico = ReporteVisorModelo.NoEsSubProyectoEmblematico,
-                LinkFicha = string.Empty,
-                HambreCero = ReporteVisorModelo.NoEsSubProyectoHambreCero
+                SubProyectoEmblematico = "N",
+                HambreCero = "N"
             }
         ).ToList();
-        return reporteParaGeoVisor;
     }
 }

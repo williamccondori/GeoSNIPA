@@ -1,7 +1,8 @@
-﻿namespace Pnipa.Geosnipa.Aplicacion.Caracteristicas.SubProyectos.Queries.ObtenerReporteVisor;
+﻿namespace Pnipa.Geosnipa.Dominio.Modelos;
 
-public class ObtenerReporteVisorResponse
+public class ReporteParaGeoVisorModelo
 {
+    public string? Id { get; init; }
     public string? CodigoSubProyecto { get; init; }
     public string? Convocatoria { get; init; }
     public string? Ventanilla { get; init; }

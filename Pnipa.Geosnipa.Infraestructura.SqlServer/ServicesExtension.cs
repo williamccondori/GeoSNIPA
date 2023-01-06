@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Pnipa.Geosnipa.Dominio.Repositorios;
 using Pnipa.Geosnipa.Infraestructura.SqlServer.Contextos;
-using Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.Sapel;
 
 namespace Pnipa.Geosnipa.Infraestructura.SqlServer;
 
@@ -20,10 +18,12 @@ public static class ServicesExtension
         services.AddDbContext<PnipaConcursosContexto>(
             options => options.UseSqlServer(configuration.GetConnectionString("PnipaConcursos"))
         );
-        services.AddTransient(typeof(ISapelLecturaRepositorio<>), typeof(LecturaRepositorio<>));
-        services.AddTransient<ISapelSubProyectoRepositorio, SubProyectoRepositorio>();
         services.AddTransient<
-            IPnipaConcursosSubProyectoRepositorio,
+            Dominio.Repositorios.Sapel.ISubProyectoRepositorio,
+            Repositorios.Sapel.SubProyectoRepositorio
+        >();
+        services.AddTransient<
+            Dominio.Repositorios.PnipaConcursos.ISubProyectoRepositorio,
             Repositorios.PnipaConcursos.SubProyectoRepositorio
         >();
     }

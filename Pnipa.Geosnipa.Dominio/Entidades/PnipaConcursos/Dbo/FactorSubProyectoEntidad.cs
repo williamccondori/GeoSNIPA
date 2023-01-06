@@ -15,8 +15,5 @@ namespace Pnipa.Geosnipa.Dominio.Entidades.PnipaConcursos.Dbo
         public int? EslabonId { get; set; }
         public int? NroBeneficiariosHombres { get; set; }
         public int? NroBeneficiariosMujeres { get; set; }
-
-        public int TotalBeneficiarios =>
-            NroBeneficiariosHombres ?? 0 + NroBeneficiariosMujeres ?? 0;
     }
 }

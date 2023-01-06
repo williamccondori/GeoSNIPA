@@ -10,4 +10,12 @@ public class S5AlianzaEstrategicaEntidad : EntidadAuditableSapel
     public string? TmDetDesctipcionRolConcurso { get; set; }
     public string? TmDetDesctipcionCategoriaActividad { get; set; }
     public string? RazonSocial { get; set; }
+
+    #region Constantes
+
+    public const string EntidadAsociada = "Entidad Asociada";
+    public const string EntidadProponente = "Entidad Proponente";
+    public const string EntidadColaboradora = "Entidad Colaboradora";
+
+    #endregion
 }

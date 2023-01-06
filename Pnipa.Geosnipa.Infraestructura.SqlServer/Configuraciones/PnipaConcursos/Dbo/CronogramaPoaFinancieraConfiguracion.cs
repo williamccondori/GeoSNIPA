@@ -4,15 +4,22 @@ using Pnipa.Geosnipa.Dominio.Entidades.PnipaConcursos.Dbo;
 
 namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Configuraciones.PnipaConcursos.Dbo
 {
-    public class UsuarioVersionConfiguracion : IEntityTypeConfiguration<UsuarioVersionEntidad>
+    public class CronogramaPoaFinancieraConfiguracion
+        : IEntityTypeConfiguration<CronogramaPoaFinancieraEntidad>
     {
-        public void Configure(EntityTypeBuilder<UsuarioVersionEntidad> builder)
+        public void Configure(EntityTypeBuilder<CronogramaPoaFinancieraEntidad> builder)
         {
             builder.HasKey(p => new { p.Id });
-            builder.ToTable("UsuarioVersion", "dbo");
+            builder.ToTable("CronogramaPoaFinanciera", "dbo");
             builder.Property(p => p.Id).HasColumnName("ID").IsRequired();
-            builder.Property(p => p.UsuarioId).HasColumnName("UsuarioID").IsRequired();
-            builder.Property(p => p.Vigente).HasColumnName("Vigente").IsRequired();
+            builder.Property(p => p.PoaId).HasColumnName("PoaID").IsRequired();
+            builder.Property(p => p.ProyectoId).HasColumnName("ProyectoID").IsRequired();
+            builder.Property(p => p.Mes).HasColumnName("Mes").IsRequired();
+            builder.Property(p => p.Meta).HasColumnName("Meta").HasPrecision(18, 4);
+            ;
+            builder.Property(p => p.Monto).HasColumnName("Monto").HasPrecision(18, 4);
+            ;
+            builder.Property(p => p.OldId).HasColumnName("OldID");
             builder.Property(p => p.UsuarioIdRegistro).HasColumnName("UsuarioIdRegistro");
             builder.Property(p => p.UsuarioIdModifico).HasColumnName("UsuarioIdModifico");
             builder.Property(p => p.FechaRegistro).HasColumnName("FechaRegistro");
