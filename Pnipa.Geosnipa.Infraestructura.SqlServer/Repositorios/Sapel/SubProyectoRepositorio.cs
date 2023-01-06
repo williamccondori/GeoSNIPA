@@ -66,51 +66,7 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
 
     public async Task<IEnumerable<ReporteParaGeoVisorModelo>> ObtenerReporteParaGeoVisor()
     {
-        var fondos = await (
-            from fondo in _pnipaConcursosContexto.SapelFondos
-            where fondo.EstadoRegistro == EntidadAuditableSapel.EstadoRegistroActivo
-            select fondo
-        ).ToListAsync();
-
-        var ubigeos = await (
-            from ubigeo in _pnipaConcursosContexto.SapelUbigeos
-            where ubigeo.EstadoRegistro == EntidadAuditableSapel.EstadoRegistroActivo
-            select ubigeo
-        ).ToListAsync();
-
-        var especies = await (
-            from especie in _sapelContexto.Especies
-            where
-                especie.TipoEspecie == S1EspecieEntidad.TipoEspecieP
-                && especie.EstadoRegistro == EntidadAuditableSapel.EstadoRegistroActivo
-            group especie by new { especie.SubProyectoId, especie.TipoEspecie } into agrupador
-            select new EspecieModelo
-            {
-                SubProyectoId = agrupador.Key.SubProyectoId,
-                Nombre = agrupador.Max(grupo => grupo.EspecieNombre)
-            }
-        ).ToListAsync();
-
-        var aportes = await (
-            from alianzaEstrategica in _sapelContexto.AlianzasEstrategicas
-            join aporte in _sapelContexto.ComponentesActividadAlianzaEstrategica
-                on new
-                {
-                    alianzaEstrategica.AlianzaEstrategicaId,
-                    EstadoRegistro = EntidadAuditableSapel.EstadoRegistroActivo
-                } equals new { aporte.AlianzaEstrategicaId, aporte.EstadoRegistro }
-            group aporte by new
-            {
-                alianzaEstrategica.SubProyectoId,
-                alianzaEstrategica.TmDetDesctipcionRolConcurso
-            } into agrupador
-            select new AporteModelo
-            {
-                SubProyectoId = agrupador.Key.SubProyectoId,
-                Entidad = agrupador.Key.TmDetDesctipcionRolConcurso,
-                MontoAporte = agrupador.Sum(grupo => grupo.Aporte)
-            }
-        ).ToListAsync();
+        #region Consulta de sub proyectos
 
         var subProyectos = await (
             from subProyecto in _sapelContexto.SubProyectos
@@ -211,6 +167,70 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
                 S9CantidadAgentesInnovacionMujeres = subProyecto.S9CantidadAgentesInnovacionMujeres
             }
         ).ToListAsync();
+
+        #endregion
+
+        #region Primer filtro (Fondos)
+
+        var fondos = await (
+            from fondo in _pnipaConcursosContexto.SapelFondos
+            where fondo.EstadoRegistro == EntidadAuditableSapel.EstadoRegistroActivo
+            select fondo
+        ).ToListAsync();
+
+        #endregion
+
+        #region Segundo filtro (Ubigeos)
+
+        var ubigeos = await (
+            from ubigeo in _pnipaConcursosContexto.SapelUbigeos
+            where ubigeo.EstadoRegistro == EntidadAuditableSapel.EstadoRegistroActivo
+            select ubigeo
+        ).ToListAsync();
+
+        #endregion
+
+        #region Tercer filtro (Especies)
+
+        var especies = await (
+            from especie in _sapelContexto.Especies
+            where
+                especie.TipoEspecie == S1EspecieEntidad.TipoEspecieP
+                && especie.EstadoRegistro == EntidadAuditableSapel.EstadoRegistroActivo
+            group especie by new { especie.SubProyectoId, especie.TipoEspecie } into agrupador
+            select new EspecieModelo
+            {
+                SubProyectoId = agrupador.Key.SubProyectoId,
+                Nombre = agrupador.Max(grupo => grupo.EspecieNombre)
+            }
+        ).ToListAsync();
+
+        #endregion
+
+        #region Consulta de aportes
+
+        var aportes = await (
+            from alianzaEstrategica in _sapelContexto.AlianzasEstrategicas
+            join aporte in _sapelContexto.ComponentesActividadAlianzaEstrategica
+                on new
+                {
+                    alianzaEstrategica.AlianzaEstrategicaId,
+                    EstadoRegistro = EntidadAuditableSapel.EstadoRegistroActivo
+                } equals new { aporte.AlianzaEstrategicaId, aporte.EstadoRegistro }
+            group aporte by new
+            {
+                alianzaEstrategica.SubProyectoId,
+                alianzaEstrategica.TmDetDesctipcionRolConcurso
+            } into agrupador
+            select new AporteModelo
+            {
+                SubProyectoId = agrupador.Key.SubProyectoId,
+                Entidad = agrupador.Key.TmDetDesctipcionRolConcurso,
+                MontoAporte = agrupador.Sum(grupo => grupo.Aporte)
+            }
+        ).ToListAsync();
+
+        #endregion
 
         return (
             from subProyecto in subProyectos

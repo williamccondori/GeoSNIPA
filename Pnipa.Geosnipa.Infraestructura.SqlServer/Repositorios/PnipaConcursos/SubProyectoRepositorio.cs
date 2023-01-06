@@ -19,6 +19,8 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.PnipaConcursos
             _pnipaConcursosContexto = pnipaConcursosContexto;
         }
 
+        #region Métodos estáticos
+
         private static string OntenerVentanilla(int codigoVentanilla)
         {
             return codigoVentanilla switch
@@ -67,6 +69,8 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.PnipaConcursos
         {
             return monto - aporteMonetario;
         }
+
+        #endregion
 
         public async Task<IEnumerable<ReporteParaGeoVisorModelo>> ObtenerReporteParaGeoVisor()
         {
@@ -459,11 +463,15 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.PnipaConcursos
 
             #endregion
 
+            #region Consulta de valores tabla
+
             var valoresTabla = await (
                 from valorTabla in _pnipaConcursosContexto.ValoresTabla
                 where valorTabla.EstadoRegistro == EntidadAuditable.EstadoRegistroActivo
                 select valorTabla
             ).ToListAsync();
+
+            #endregion
 
             return (
                 from subProyecto in subProyectos
