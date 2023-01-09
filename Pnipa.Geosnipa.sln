@@ -1,12 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pnipa.Geosnipa.Dominio", "Pnipa.Geosnipa.Dominio\Pnipa.Geosnipa.Dominio.csproj", "{57345729-14C0-4321-8DA9-2F95CD5ABA9B}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pnipa.Geosnipa.Dominio", "Pnipa.Geosnipa.Dominio\Pnipa.Geosnipa.Dominio.csproj", "{57345729-14C0-4321-8DA9-2F95CD5ABA9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pnipa.Geosnipa.Api", "Pnipa.Geosnipa.Api\Pnipa.Geosnipa.Api.csproj", "{BFD5C121-6C77-48A5-8373-AAC8B402F957}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pnipa.Geosnipa.Api", "Pnipa.Geosnipa.Api\Pnipa.Geosnipa.Api.csproj", "{BFD5C121-6C77-48A5-8373-AAC8B402F957}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pnipa.Geosnipa.Infraestructura.SqlServer", "Pnipa.Geosnipa.Infraestructura.SqlServer\Pnipa.Geosnipa.Infraestructura.SqlServer.csproj", "{D1A96AA8-877F-4229-BBF5-85B526486DFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pnipa.Geosnipa.Infraestructura.SqlServer", "Pnipa.Geosnipa.Infraestructura.SqlServer\Pnipa.Geosnipa.Infraestructura.SqlServer.csproj", "{D1A96AA8-877F-4229-BBF5-85B526486DFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pnipa.Geosnipa.Aplicacion", "Pnipa.Geosnipa.Aplicacion\Pnipa.Geosnipa.Aplicacion.csproj", "{E78A0E28-5C5A-43AF-9FB4-49D6B6DAB743}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pnipa.Geosnipa.Aplicacion", "Pnipa.Geosnipa.Aplicacion\Pnipa.Geosnipa.Aplicacion.csproj", "{E78A0E28-5C5A-43AF-9FB4-49D6B6DAB743}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pnipa.Geosnipa.Infraestructura.PostgreSql", "Pnipa.Geosnipa.Infraestructura.PostgreSql\Pnipa.Geosnipa.Infraestructura.PostgreSql.csproj", "{01EF8774-F5CB-483F-9F6C-3AFC8E59ADC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +35,15 @@ Global
 		{E78A0E28-5C5A-43AF-9FB4-49D6B6DAB743}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E78A0E28-5C5A-43AF-9FB4-49D6B6DAB743}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E78A0E28-5C5A-43AF-9FB4-49D6B6DAB743}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01EF8774-F5CB-483F-9F6C-3AFC8E59ADC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01EF8774-F5CB-483F-9F6C-3AFC8E59ADC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01EF8774-F5CB-483F-9F6C-3AFC8E59ADC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01EF8774-F5CB-483F-9F6C-3AFC8E59ADC1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D408B6D0-95E7-40DE-A6F7-9DE8D76435AE}
 	EndGlobalSection
 EndGlobal

@@ -326,6 +326,10 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Repositorios.PnipaConcursos
 
             #endregion
 
+            #region Segundo filtro
+
+            #endregion
+
             #region Cuarto filtro (Aportes)
 
             var aportes = await (

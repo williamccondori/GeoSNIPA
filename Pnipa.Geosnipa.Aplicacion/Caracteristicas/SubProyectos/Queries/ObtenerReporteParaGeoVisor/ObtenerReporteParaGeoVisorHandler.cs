@@ -2,13 +2,16 @@
 
 namespace Pnipa.Geosnipa.Aplicacion.Caracteristicas.SubProyectos.Queries.ObtenerReporteVisor;
 
-public class ObtenerReporteVisorHandler
-    : IRequestHandler<ObtenerReporteVisorRequest, IEnumerable<ObtenerReporteVisorResponse>>
+public class ObtenerReporteParaGeoVisorHandler
+    : IRequestHandler<
+        ObtenerReporteParaGeoVisorRequest,
+        IEnumerable<ObtenerReporteParaGeoVisorResponse>
+    >
 {
     private readonly Dominio.Repositorios.PnipaConcursos.ISubProyectoRepositorio _pnipaConcursosSubProyectoRepositorio;
     private readonly Dominio.Repositorios.Sapel.ISubProyectoRepositorio _sapelSubProyectoRepositorio;
 
-    public ObtenerReporteVisorHandler(
+    public ObtenerReporteParaGeoVisorHandler(
         Dominio.Repositorios.PnipaConcursos.ISubProyectoRepositorio pnipaConcursosSubProyectoRepositorio,
         Dominio.Repositorios.Sapel.ISubProyectoRepositorio sapelSubProyectoRepositorio
     )
@@ -17,8 +20,8 @@ public class ObtenerReporteVisorHandler
         _sapelSubProyectoRepositorio = sapelSubProyectoRepositorio;
     }
 
-    public async Task<IEnumerable<ObtenerReporteVisorResponse>> Handle(
-        ObtenerReporteVisorRequest request,
+    public async Task<IEnumerable<ObtenerReporteParaGeoVisorResponse>> Handle(
+        ObtenerReporteParaGeoVisorRequest request,
         CancellationToken cancellationToken
     )
     {
@@ -41,7 +44,7 @@ public class ObtenerReporteVisorHandler
             .Union(from reporteSapel in reporteParaGeoVisorDesdeSapel select reporteSapel)
             .Select(
                 reporte =>
-                    new ObtenerReporteVisorResponse
+                    new ObtenerReporteParaGeoVisorResponse
                     {
                         CodigoSubProyecto = reporte.CodigoSubProyecto,
                         Convocatoria = reporte.Convocatoria,
