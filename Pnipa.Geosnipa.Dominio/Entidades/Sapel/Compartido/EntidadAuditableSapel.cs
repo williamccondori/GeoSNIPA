@@ -1,5 +1,6 @@
 namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido;
 
+[Serializable]
 public class EntidadAuditableSapel
 {
     #region Constantes

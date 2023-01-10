@@ -10,34 +10,34 @@ public class PnipaConcursosContexto : DbContext
     {
     }
 
-    public virtual DbSet<AcreditacionDocumentoGestionEntidad> AcreditacionesDocumentoGestion { get; set; }
-    public virtual DbSet<EntidadEntidad> Entidades { get; set; }
-    public virtual DbSet<PostulanteEntidad> Postulantes { get; set; }
-    public virtual DbSet<PostulanteMacroRegionEntidad> PostulantesMacroRegion { get; set; }
-    public virtual DbSet<ProyectoEntidad> Proyectos { get; set; }
-    public virtual DbSet<SapelFondoEntidad> SapelFondos { get; set; }
-    public virtual DbSet<SapelUbigeoEntidad> SapelUbigeos { get; set; }
-    public virtual DbSet<UsuarioEntidad> Usuarios { get; set; }
-    public virtual DbSet<ValorTablaEntidad> ValoresTabla { get; set; }
-    public virtual DbSet<VistaAmbitoIntervencionEntidad> VistaAmbitosIntervencion { get; set; }
-    public virtual DbSet<VistaConvocatoriaEntidad> VistaConvocatorias { get; set; }
-    public virtual DbSet<PlanNegocioEntidad> PlanesNegocio { get; set; }
-    public virtual DbSet<ProductoPlanNegocioEntidad> ProductosPlanNegocio { get; set; }
-    public virtual DbSet<MacroRegionEntidad> MacroRegiones { get; set; }
-    public virtual DbSet<EntidadProponenteUbigeoEntidad> EntidadProponenteUbigeos { get; set; }
-    public virtual DbSet<FactorSubProyectoEntidad> FactoresSubProyecto { get; set; }
-    public virtual DbSet<TemaFactorProyectoCritico> TemasFactorCritico { get; set; }
-    public virtual DbSet<PostulanteEjecutorEntidad> PostulanteEjecutores { get; set; }
-    public virtual DbSet<AdjudicacionEntidad> Adjudicaciones { get; set; }
-    public virtual DbSet<UsuarioVersionEntidad> UsuarioVersiones { get; set; }
-    public virtual DbSet<SegProyectoPasoCriticoEntidad> SegProyectoPasosCriticos { get; set; }
-    public virtual DbSet<EstadoSubProyectoEntidad> EstadosSubProyecto { get; set; }
-    public virtual DbSet<AporteEntidadPasoCriticoEntidad> AportesEntidadPasoCritico { get; set; }
-    public virtual DbSet<CronogramaPoaFinancieraEntidad> CronogramasPoaFinanciera { get; set; }
-    public virtual DbSet<PasoCriticoEntidad> PasosCritico { get; set; }
-    public virtual DbSet<PoaEntidad> Poas { get; set; }
-    public virtual DbSet<PresupuestoEntidadEntidad> PresupuestosEntidad { get; set; }
-    public virtual DbSet<PresupuestoEntidad> Presupuestos { get; set; }
+    public virtual DbSet<AcreditacionDocumentoGestionEntidad> AcreditacionesDocumentoGestion { get; set; } = default!;
+    public virtual DbSet<EntidadEntidad> Entidades { get; set; } = default!;
+    public virtual DbSet<PostulanteEntidad> Postulantes { get; set; } = default!;
+    public virtual DbSet<PostulanteMacroRegionEntidad> PostulantesMacroRegion { get; set; } = default!;
+    public virtual DbSet<ProyectoEntidad> Proyectos { get; set; } = default!;
+    public virtual DbSet<SapelFondoEntidad> SapelFondos { get; set; } = default!;
+    public virtual DbSet<SapelUbigeoEntidad> SapelUbigeos { get; set; } = default!;
+    public virtual DbSet<UsuarioEntidad> Usuarios { get; set; } = default!;
+    public virtual DbSet<ValorTablaEntidad> ValoresTabla { get; set; } = default!;
+    public virtual DbSet<VistaAmbitoIntervencionEntidad> VistaAmbitosIntervencion { get; set; } = default!;
+    public virtual DbSet<VistaConvocatoriaEntidad> VistaConvocatorias { get; set; } = default!;
+    public virtual DbSet<PlanNegocioEntidad> PlanesNegocio { get; set; } = default!;
+    public virtual DbSet<ProductoPlanNegocioEntidad> ProductosPlanNegocio { get; set; } = default!;
+    public virtual DbSet<MacroRegionEntidad> MacroRegiones { get; set; } = default!;
+    public virtual DbSet<EntidadProponenteUbigeoEntidad> EntidadProponenteUbigeos { get; set; } = default!;
+    public virtual DbSet<FactorSubProyectoEntidad> FactoresSubProyecto { get; set; } = default!;
+    public virtual DbSet<TemaFactorProyectoCritico> TemasFactorCritico { get; set; } = default!;
+    public virtual DbSet<PostulanteEjecutorEntidad> PostulanteEjecutores { get; set; } = default!;
+    public virtual DbSet<AdjudicacionEntidad> Adjudicaciones { get; set; } = default!;
+    public virtual DbSet<UsuarioVersionEntidad> UsuarioVersiones { get; set; } = default!;
+    public virtual DbSet<SegProyectoPasoCriticoEntidad> SegProyectoPasosCriticos { get; set; } = default!;
+    public virtual DbSet<EstadoSubProyectoEntidad> EstadosSubProyecto { get; set; } = default!;
+    public virtual DbSet<AporteEntidadPasoCriticoEntidad> AportesEntidadPasoCritico { get; set; } = default!;
+    public virtual DbSet<CronogramaPoaFinancieraEntidad> CronogramasPoaFinanciera { get; set; } = default!;
+    public virtual DbSet<PasoCriticoEntidad> PasosCritico { get; set; } = default!;
+    public virtual DbSet<PoaEntidad> Poas { get; set; } = default!;
+    public virtual DbSet<PresupuestoEntidadEntidad> PresupuestosEntidad { get; set; } = default!;
+    public virtual DbSet<PresupuestoEntidad> Presupuestos { get; set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

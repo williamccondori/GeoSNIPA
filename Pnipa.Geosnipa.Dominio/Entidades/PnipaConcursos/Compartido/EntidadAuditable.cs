@@ -1,5 +1,6 @@
 namespace Pnipa.Geosnipa.Dominio.Entidades.PnipaConcursos.Compartido;
 
+[Serializable]
 public class EntidadAuditable
 {
     #region Constantes

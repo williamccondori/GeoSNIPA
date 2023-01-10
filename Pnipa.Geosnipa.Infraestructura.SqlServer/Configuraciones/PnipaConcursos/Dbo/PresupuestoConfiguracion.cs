@@ -25,7 +25,6 @@ public class PresupuestoConfiguracion : IEntityTypeConfiguration<PresupuestoEnti
             .Property(p => p.PorcentajeEntidades)
             .HasColumnName("PorcentajeEntidades")
             .HasPrecision(18, 4);
-        ;
         builder.Property(p => p.UsuarioIdRegistro).HasColumnName("UsuarioIdRegistro");
         builder.Property(p => p.UsuarioIdModifico).HasColumnName("UsuarioIdModifico");
         builder.Property(p => p.FechaRegistro).HasColumnName("FechaRegistro");

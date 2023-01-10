@@ -41,6 +41,7 @@ public class
                 reporte =>
                     new SubProyectoEntidad
                     {
+                        Id = default!,
                         CodigoSubProyecto = reporte.CodigoSubProyecto,
                         Convocatoria = reporte.Convocatoria,
                         Ventanilla = reporte.Ventanilla,

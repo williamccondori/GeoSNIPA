@@ -17,52 +17,68 @@ public class GeosnipaContexto : MongoClient
 
         _database = client.GetDatabase(nombreBaseDatos);
 
-        BsonClassMap.RegisterClassMap<SubProyectoEntidad>(cm =>
+        BsonClassMap.RegisterClassMap<SubProyectoEntidad>(map =>
         {
-            cm.MapIdProperty(c => c.Id)
+            map.MapIdProperty(subProyectoEntidad => subProyectoEntidad.Id)
                 .SetIdGenerator(StringObjectIdGenerator.Instance)
                 .SetSerializer(new StringSerializer(BsonType.ObjectId));
-            cm.MapMember(c => c.CodigoSubProyecto).SetElementName("codigo_subproyecto");
-            cm.MapMember(c => c.Convocatoria).SetElementName("convocatoria");
-            cm.MapMember(c => c.Ventanilla).SetElementName("ventanilla");
-            cm.MapMember(c => c.InstitucionSuvencionadora).SetElementName("institucion_suvencionadora");
-            cm.MapMember(c => c.Ubigeo).SetElementName("ubigeo");
-            cm.MapMember(c => c.Longitud).SetElementName("longitud");
-            cm.MapMember(c => c.Latitud).SetElementName("latitud");
-            cm.MapMember(c => c.SubSector).SetElementName("sub_sector");
-            cm.MapMember(c => c.TipoFondo).SetElementName("tipo_fondo");
-            cm.MapMember(c => c.TituloSubproyecto).SetElementName("titulo_subproyecto");
-            cm.MapMember(c => c.Departamento).SetElementName("departamento");
-            cm.MapMember(c => c.Provincia).SetElementName("provincia");
-            cm.MapMember(c => c.Distrito).SetElementName("distrito");
-            cm.MapMember(c => c.Omr).SetElementName("omr");
-            cm.MapMember(c => c.Bonificacion).SetElementName("bonificacion");
-            cm.MapMember(c => c.Tema).SetElementName("tema");
-            cm.MapMember(c => c.EslabonCadena).SetElementName("eslabon_cadena");
-            cm.MapMember(c => c.Especies).SetElementName("especies");
-            cm.MapMember(c => c.Usuario).SetElementName("usuario");
-            cm.MapMember(c => c.EntidadProponente).SetElementName("entidad_proponente");
-            cm.MapMember(c => c.EstadoEjecucion).SetElementName("estado_ejecucion");
-            cm.MapMember(c => c.LinkImagenInicial).SetElementName("link_imagen_inicial");
-            cm.MapMember(c => c.LinkImagenes).SetElementName("link_imagenes").SetDefaultValue(string.Empty);
-            cm.MapMember(c => c.NumeroContrato).SetElementName("numero_contrato");
-            cm.MapMember(c => c.AporteEntidadAsociada).SetElementName("aporte_entidad_asociada");
-            cm.MapMember(c => c.AporteEntidadColaboradora).SetElementName("aporte_entidad_colaboradora");
-            cm.MapMember(c => c.AporteEntidadProponente).SetElementName("aporte_entidad_proponente");
-            cm.MapMember(c => c.AportePnipa).SetElementName("aporte_pnipa");
-            cm.MapMember(c => c.TotalSubProyecto).SetElementName("total_subproyecto");
-            cm.MapMember(c => c.Hito).SetElementName("hito");
-            cm.MapMember(c => c.DesenbolsoPnipa).SetElementName("desenbolso_pnipa");
-            cm.MapMember(c => c.TipoEntidadParticipa).SetElementName("tipo_entidad_participa");
-            cm.MapMember(c => c.BeneficioAmbiental).SetElementName("beneficio_ambiental");
-            cm.MapMember(c => c.TemaAmbiental).SetElementName("tema_ambiental");
-            cm.MapMember(c => c.BeneficioSocial).SetElementName("beneficio_social");
-            cm.MapMember(c => c.NumeroBeneficiariosMujeres).SetElementName("numero_beneficiarios_mujeres");
-            cm.MapMember(c => c.NumeroBeneficiariosHombres).SetElementName("numero_beneficiarios_hombres");
-            cm.MapMember(c => c.TotalBeneficiarios).SetElementName("total_beneficiarios");
-            cm.MapMember(c => c.SubProyectoEmblematico).SetElementName("subproyecto_emblematico");
-            cm.MapMember(c => c.LinkFicha).SetElementName("link_ficha");
-            cm.MapMember(c => c.HambreCero).SetElementName("hambre_cero");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.CodigoSubProyecto)
+                .SetElementName("codigo_subproyecto");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Convocatoria).SetElementName("convocatoria");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Ventanilla).SetElementName("ventanilla");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.InstitucionSuvencionadora)
+                .SetElementName("institucion_suvencionadora");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Ubigeo).SetElementName("ubigeo");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Longitud).SetElementName("longitud");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Latitud).SetElementName("latitud");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.SubSector).SetElementName("sub_sector");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.TipoFondo).SetElementName("tipo_fondo");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.TituloSubproyecto)
+                .SetElementName("titulo_subproyecto");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Departamento).SetElementName("departamento");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Provincia).SetElementName("provincia");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Distrito).SetElementName("distrito");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Omr).SetElementName("omr");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Bonificacion).SetElementName("bonificacion");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Tema).SetElementName("tema");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.EslabonCadena).SetElementName("eslabon_cadena");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Especies).SetElementName("especies");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Usuario).SetElementName("usuario");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.EntidadProponente)
+                .SetElementName("entidad_proponente");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.EstadoEjecucion).SetElementName("estado_ejecucion");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.LinkImagenInicial)
+                .SetElementName("link_imagen_inicial");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.LinkImagenes).SetElementName("link_imagenes")
+                .SetDefaultValue(string.Empty);
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.NumeroContrato).SetElementName("numero_contrato");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.AporteEntidadAsociada)
+                .SetElementName("aporte_entidad_asociada");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.AporteEntidadColaboradora)
+                .SetElementName("aporte_entidad_colaboradora");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.AporteEntidadProponente)
+                .SetElementName("aporte_entidad_proponente");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.AportePnipa).SetElementName("aporte_pnipa");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.TotalSubProyecto)
+                .SetElementName("total_subproyecto");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.Hito).SetElementName("hito");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.DesenbolsoPnipa).SetElementName("desenbolso_pnipa");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.TipoEntidadParticipa)
+                .SetElementName("tipo_entidad_participa");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.BeneficioAmbiental)
+                .SetElementName("beneficio_ambiental");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.TemaAmbiental).SetElementName("tema_ambiental");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.BeneficioSocial).SetElementName("beneficio_social");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.NumeroBeneficiariosMujeres)
+                .SetElementName("numero_beneficiarios_mujeres");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.NumeroBeneficiariosHombres)
+                .SetElementName("numero_beneficiarios_hombres");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.TotalBeneficiarios)
+                .SetElementName("total_beneficiarios");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.SubProyectoEmblematico)
+                .SetElementName("subproyecto_emblematico");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.LinkFicha).SetElementName("link_ficha");
+            map.MapMember(subProyectoEntidad => subProyectoEntidad.HambreCero).SetElementName("hambre_cero");
         });
     }
 

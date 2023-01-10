@@ -16,21 +16,21 @@ public class SapelContexto : DbContext
     {
     }
 
-    public virtual DbSet<OmrRegionEntidad> OmrRegiones { get; set; }
-    public virtual DbSet<ConcursoEntidad> Concursos { get; set; }
-    public virtual DbSet<ConcursoFondoEntidad> ConcursoFondos { get; set; }
-    public virtual DbSet<ContratoAdjudicacionEntidad> ContratosAdjudicacion { get; set; }
+    public virtual DbSet<OmrRegionEntidad> OmrRegiones { get; set; } = default!;
+    public virtual DbSet<ConcursoEntidad> Concursos { get; set; } = default!;
+    public virtual DbSet<ConcursoFondoEntidad> ConcursoFondos { get; set; } = default!;
+    public virtual DbSet<ContratoAdjudicacionEntidad> ContratosAdjudicacion { get; set; } = default!;
 
     public virtual DbSet<S10ComponenteActividadAlianzaEstrategicaEntidad> ComponentesActividadAlianzaEstrategica
     {
         get;
         set;
-    }
+    } = default!;
 
-    public virtual DbSet<S1EspecieEntidad> Especies { get; set; }
-    public virtual DbSet<S1UbicacionEntidad> S1Ubicaciones { get; set; }
-    public virtual DbSet<S5AlianzaEstrategicaEntidad> AlianzasEstrategicas { get; set; }
-    public virtual DbSet<SubProyectoEntidad> SubProyectos { get; set; }
+    public virtual DbSet<S1EspecieEntidad> Especies { get; set; } = default!;
+    public virtual DbSet<S1UbicacionEntidad> S1Ubicaciones { get; set; } = default!;
+    public virtual DbSet<S5AlianzaEstrategicaEntidad> AlianzasEstrategicas { get; set; } = default!;
+    public virtual DbSet<SubProyectoEntidad> SubProyectos { get; set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,9 +38,7 @@ public class SapelContexto : DbContext
         modelBuilder.ApplyConfiguration(new ConcursoConfiguracion());
         modelBuilder.ApplyConfiguration(new ConcursoFondoConfiguracion());
         modelBuilder.ApplyConfiguration(new ContratoAdjudicacionConfiguracion());
-        modelBuilder.ApplyConfiguration(
-            new S10ComponenteActividadAlianzaEstrategicaConfiguracion()
-        );
+        modelBuilder.ApplyConfiguration(new S10ComponenteActividadAlianzaEstrategicaConfiguracion());
         modelBuilder.ApplyConfiguration(new S1EspecieConfiguracion());
         modelBuilder.ApplyConfiguration(new S1UbicacionConfiguracion());
         modelBuilder.ApplyConfiguration(new S5AlianzaEstrategicaConfiguracion());

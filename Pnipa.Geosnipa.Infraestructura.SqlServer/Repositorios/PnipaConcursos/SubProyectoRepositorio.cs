@@ -29,11 +29,7 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
                 estadoSubProyecto.IndicadorSapel
                 == EstadoSubProyectoEntidad.NoEsSubProyectoSapel
                 && estadoSubProyecto.EstadoRegistro == EntidadAuditable.EstadoRegistroActivo
-            select new CategoriaModelo
-            {
-                CategoriaSubProyectoId = estadoSubProyecto.CategoriaSubProyectoId ?? 0,
-                PostulanteId = estadoSubProyecto.PostulanteId
-            }
+            select new CategoriaModelo { PostulanteId = estadoSubProyecto.PostulanteId }
         ).Union(
             from postulante in _pnipaConcursosContexto.Postulantes
             join convocatoria in _pnipaConcursosContexto.VistaConvocatorias
@@ -43,7 +39,7 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
                     convocatoria.TipoFondoId
                 }
             where postulante.EstadoRegistro == EntidadAuditable.EstadoRegistroActivo
-            select new CategoriaModelo { CategoriaSubProyectoId = 16, PostulanteId = postulante.Id }
+            select new CategoriaModelo { PostulanteId = postulante.Id }
         );
 
         #endregion
@@ -56,7 +52,6 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
             into agrupador
             select new AdjudicacionModelo
             {
-                PostulanteId = agrupador.Key.PostulanteId,
                 AdjudicacionId = agrupador.Max(grupo => grupo.Id)
             };
 
@@ -149,7 +144,6 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
             select new SubProyectoModelo
             {
                 PostulanteId = postulante.Id,
-                ProyectoId = proyecto.Id,
                 CodigoSubProyecto = postulante.CodigoEnvioProyecto,
                 Convocatoria = ObtenerConvocatoria(convocatoria.Descripcion),
                 Ventanilla = OntenerVentanilla(postulante.Ventanilla),
@@ -172,18 +166,17 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
                 LinkImagenInicial = postulante.LinkImagenInicial,
                 LinkImagenes = postulante.LinkImagenes,
                 CodigoContrato = adjudicacion.CodigoContrato,
-                Codigo = convocatoria.Codigo,
                 EspecieId = factor.EspecieId,
                 TipoEntidadParticipaId = factor.TipoEntidadParticipaId,
                 BeneficioAmbientalId = factor.BeneficioAmbientalId,
                 TemaAmbientalId = factor.TemaAmbientalId,
                 BeneficioSocialId = factor.BeneficioSocialId,
-                EslabonId = factor.EslabonId,
                 NumeroBeneficiariosHombres = factor.NroBeneficiariosHombres,
                 NumeroBeneficiariosMujeres = factor.NroBeneficiariosMujeres,
                 TotalBeneficiarios =
                     factor.NroBeneficiariosHombres + factor.NroBeneficiariosMujeres,
-                Especie = adjudicacion.Especie
+                Especie = adjudicacion.Especie,
+                EslabonId = factor.EslabonId
             }
         ).Distinct();
 
@@ -207,8 +200,6 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
             {
                 PostulanteId = postulante.Id,
                 CodigoEnvioProyecto = postulante.CodigoEnvioProyecto,
-                Vigente = usuarioVersion.Vigente,
-                EstadoInforme = pasoCritico.EstadoInformeId,
                 VigenteOk =
                     (
                         ((int?)pasoCritico.EstadoInformeId ?? -1) != -1
@@ -332,7 +323,7 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
                 && poa.EstadoRegistro == EntidadAuditable.EstadoRegistroActivo
                 && entidad.EstadoRegistro == EntidadAuditable.EstadoRegistroActivo
                 && postulanteEntidad.EstadoRegistro == EntidadAuditable.EstadoRegistroActivo
-            group new { pasoCritico, aporteEntidadPasoCritico } by new
+            group new { aporteEntidadPasoCritico } by new
             {
                 pasoCritico.Numero,
                 pasoCriticoResumen.Monto,
@@ -393,7 +384,7 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
                 Omr = subProyecto.Omr ?? "OMR7_LIMA",
                 Bonificacion = subProyecto.Bonificacion,
                 Tema = subProyecto.Tema,
-                EslabonCadena = "[PENDIENTE]",
+                EslabonCadena = subProyecto.EslabonId.ToString(),
                 Especies =
                     valoresTabla
                         .FirstOrDefault(x => x.TablaId == 52 && x.Id == subProyecto.EspecieId)
@@ -443,9 +434,9 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
                 NumeroBeneficiariosMujeres = subProyecto.NumeroBeneficiariosMujeres ?? 0,
                 NumeroBeneficiariosHombres = subProyecto.NumeroBeneficiariosHombres ?? 0,
                 TotalBeneficiarios = subProyecto.TotalBeneficiarios ?? 0,
-                SubProyectoEmblematico = subProyecto.IdEmblematico,
-                LinkFicha = subProyecto.LinkFicha,
-                HambreCero = subProyecto.HambreCero
+                SubProyectoEmblematico = default,
+                HambreCero = default,
+                LinkFicha = default
             }
         ).ToList();
     }

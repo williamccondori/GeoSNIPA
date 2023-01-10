@@ -2,7 +2,7 @@ namespace Pnipa.Geosnipa.Dominio.Entidades.Geosnipa;
 
 public class SubProyectoEntidad
 {
-    public string? Id { get; init; }
+    public string Id { get; init; } = default!;
     public string? CodigoSubProyecto { get; init; }
     public string? Convocatoria { get; init; }
     public string? Ventanilla { get; init; }

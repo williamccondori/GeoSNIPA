@@ -249,7 +249,7 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
 
     #region Métodos estáticos
 
-    public static string ObtenerCodigoSubProyecto(
+    private static string ObtenerCodigoSubProyecto(
         string? tipoFondoNombre,
         string? tipoSubProyectoSiglas,
         string? s1CodigoSubProyecto
@@ -274,7 +274,7 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
     }
 
     private static decimal ObtenerMontoAporte(
-        List<AporteModelo> aportes,
+        IEnumerable<AporteModelo> aportes,
         string entidadAsociada,
         int subProyectoId
     )
