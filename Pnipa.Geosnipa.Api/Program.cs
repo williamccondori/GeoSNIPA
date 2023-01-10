@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Pnipa.Geosnipa.Api;
 using Pnipa.Geosnipa.Aplicacion;
+using Pnipa.Geosnipa.Infraestructura.MongoDb;
 using Pnipa.Geosnipa.Infraestructura.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureSqlServerLayer(builder.Configuration);
+builder.Services.AddInfrastructureMongoDbLayer();
 
 builder.Services.AddControllers();
 builder.Services.AddApiVersioningExtension();

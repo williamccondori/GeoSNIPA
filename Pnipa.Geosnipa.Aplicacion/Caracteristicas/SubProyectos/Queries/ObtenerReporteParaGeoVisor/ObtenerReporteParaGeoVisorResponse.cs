@@ -1,5 +1,6 @@
-﻿namespace Pnipa.Geosnipa.Aplicacion.Caracteristicas.SubProyectos.Queries.ObtenerReporteVisor;
+namespace Pnipa.Geosnipa.Aplicacion.Caracteristicas.SubProyectos.Queries.ObtenerReporteParaGeoVisor;
 
+[Serializable]
 public class ObtenerReporteParaGeoVisorResponse
 {
     public string? CodigoSubProyecto { get; init; }

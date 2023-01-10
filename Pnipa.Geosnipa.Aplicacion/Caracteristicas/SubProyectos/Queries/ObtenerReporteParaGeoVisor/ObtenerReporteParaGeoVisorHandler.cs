@@ -1,94 +1,68 @@
-﻿using MediatR;
+using MediatR;
+using Pnipa.Geosnipa.Dominio.Repositorios.Geosnipa;
 
-namespace Pnipa.Geosnipa.Aplicacion.Caracteristicas.SubProyectos.Queries.ObtenerReporteVisor;
+namespace Pnipa.Geosnipa.Aplicacion.Caracteristicas.SubProyectos.Queries.ObtenerReporteParaGeoVisor;
 
-public class ObtenerReporteParaGeoVisorHandler
-    : IRequestHandler<
-        ObtenerReporteParaGeoVisorRequest,
-        IEnumerable<ObtenerReporteParaGeoVisorResponse>
-    >
+// ReSharper disable once UnusedType.Global
+public class ObtenerReporteParaGeoVisorHandler : IRequestHandler<ObtenerReporteParaGeoVisorRequest,
+    IEnumerable<ObtenerReporteParaGeoVisorResponse>>
 {
-    private readonly Dominio.Repositorios.PnipaConcursos.ISubProyectoRepositorio _pnipaConcursosSubProyectoRepositorio;
-    private readonly Dominio.Repositorios.Sapel.ISubProyectoRepositorio _sapelSubProyectoRepositorio;
+    private readonly ISubProyectoRepositorio _subProyectoRepositorio;
 
-    public ObtenerReporteParaGeoVisorHandler(
-        Dominio.Repositorios.PnipaConcursos.ISubProyectoRepositorio pnipaConcursosSubProyectoRepositorio,
-        Dominio.Repositorios.Sapel.ISubProyectoRepositorio sapelSubProyectoRepositorio
-    )
+    public ObtenerReporteParaGeoVisorHandler(ISubProyectoRepositorio subProyectoRepositorio)
     {
-        _pnipaConcursosSubProyectoRepositorio = pnipaConcursosSubProyectoRepositorio;
-        _sapelSubProyectoRepositorio = sapelSubProyectoRepositorio;
+        _subProyectoRepositorio = subProyectoRepositorio;
     }
 
-    public async Task<IEnumerable<ObtenerReporteParaGeoVisorResponse>> Handle(
-        ObtenerReporteParaGeoVisorRequest request,
-        CancellationToken cancellationToken
-    )
+    public async Task<IEnumerable<ObtenerReporteParaGeoVisorResponse>> Handle(ObtenerReporteParaGeoVisorRequest request,
+        CancellationToken cancellationToken)
     {
-        var reporteParaGeoVisorDesdePnipaConcursos =
-            await _pnipaConcursosSubProyectoRepositorio.ObtenerReporteParaGeoVisor();
-        reporteParaGeoVisorDesdePnipaConcursos = reporteParaGeoVisorDesdePnipaConcursos.OrderBy(
-            reporte => reporte.Id
-        );
+        var subProyectos = await _subProyectoRepositorio.ObtenerTodos();
 
-        var reporteParaGeoVisorDesdeSapel =
-            await _sapelSubProyectoRepositorio.ObtenerReporteParaGeoVisor();
-        reporteParaGeoVisorDesdeSapel = reporteParaGeoVisorDesdeSapel.OrderBy(
-            reporte => reporte.Id
+        return subProyectos.Select(subProyecto => new ObtenerReporteParaGeoVisorResponse
+            {
+                CodigoSubProyecto = subProyecto.CodigoSubProyecto,
+                Convocatoria = subProyecto.Convocatoria,
+                Ventanilla = subProyecto.Ventanilla,
+                InstitucionSuvencionadora = subProyecto.InstitucionSuvencionadora,
+                Ubigeo = subProyecto.Ubigeo,
+                Longitud = subProyecto.Longitud,
+                Latitud = subProyecto.Latitud,
+                SubSector = subProyecto.SubSector,
+                TipoFondo = subProyecto.TipoFondo,
+                TituloSubproyecto = subProyecto.TituloSubproyecto,
+                Departamento = subProyecto.Departamento,
+                Provincia = subProyecto.Provincia,
+                Distrito = subProyecto.Distrito,
+                Omr = subProyecto.Omr,
+                Bonificacion = subProyecto.Bonificacion,
+                Tema = subProyecto.Tema,
+                EslabonCadena = subProyecto.EslabonCadena,
+                Especies = subProyecto.Especies,
+                Usuario = subProyecto.Usuario,
+                EntidadProponente = subProyecto.EntidadProponente,
+                EstadoEjecucion = subProyecto.EstadoEjecucion,
+                LinkImagenes = subProyecto.LinkImagenes,
+                LinkImagenInicial = subProyecto.LinkImagenInicial,
+                NumeroContrato = subProyecto.NumeroContrato,
+                AporteEntidadAsociada = subProyecto.AporteEntidadAsociada,
+                AporteEntidadColaboradora = subProyecto.AporteEntidadColaboradora,
+                AporteEntidadProponente = subProyecto.AporteEntidadProponente,
+                AportePnipa = subProyecto.AportePnipa,
+                TotalSubProyecto = subProyecto.TotalSubProyecto,
+                Hito = subProyecto.Hito,
+                DesenbolsoPnipa = subProyecto.DesenbolsoPnipa,
+                TipoEntidadParticipa = subProyecto.TipoEntidadParticipa,
+                BeneficioAmbiental = subProyecto.BeneficioAmbiental,
+                TemaAmbiental = subProyecto.TemaAmbiental,
+                BeneficioSocial = subProyecto.BeneficioSocial,
+                NumeroBeneficiariosMujeres = subProyecto.NumeroBeneficiariosMujeres,
+                NumeroBeneficiariosHombres = subProyecto.NumeroBeneficiariosHombres,
+                TotalBeneficiarios = subProyecto.TotalBeneficiarios,
+                SubProyectoEmblematico = subProyecto.SubProyectoEmblematico,
+                LinkFicha = subProyecto.LinkFicha,
+                HambreCero = subProyecto.HambreCero
+            }
         );
-
-        return (
-            from reportePnipaConsursos in reporteParaGeoVisorDesdePnipaConcursos
-            select reportePnipaConsursos
-        )
-            .Union(from reporteSapel in reporteParaGeoVisorDesdeSapel select reporteSapel)
-            .Select(
-                reporte =>
-                    new ObtenerReporteParaGeoVisorResponse
-                    {
-                        CodigoSubProyecto = reporte.CodigoSubProyecto,
-                        Convocatoria = reporte.Convocatoria,
-                        Ventanilla = reporte.Ventanilla,
-                        InstitucionSuvencionadora = reporte.InstitucionSuvencionadora,
-                        Ubigeo = reporte.Ubigeo,
-                        Longitud = reporte.Longitud,
-                        Latitud = reporte.Latitud,
-                        SubSector = reporte.SubSector,
-                        TipoFondo = reporte.TipoFondo,
-                        TituloSubproyecto = reporte.TituloSubproyecto,
-                        Departamento = reporte.Departamento,
-                        Provincia = reporte.Provincia,
-                        Distrito = reporte.Distrito,
-                        Omr = reporte.Omr,
-                        Bonificacion = reporte.Bonificacion,
-                        Tema = reporte.Tema,
-                        EslabonCadena = reporte.EslabonCadena,
-                        Especies = reporte.Especies,
-                        Usuario = reporte.Usuario,
-                        EntidadProponente = reporte.EntidadProponente,
-                        EstadoEjecucion = reporte.EstadoEjecucion,
-                        LinkImagenes = reporte.LinkImagenes,
-                        LinkImagenInicial = reporte.LinkImagenInicial,
-                        NumeroContrato = reporte.NumeroContrato,
-                        AporteEntidadAsociada = reporte.AporteEntidadAsociada,
-                        AporteEntidadColaboradora = reporte.AporteEntidadColaboradora,
-                        AporteEntidadProponente = reporte.AporteEntidadProponente,
-                        AportePnipa = reporte.AportePnipa,
-                        TotalSubProyecto = reporte.TotalSubProyecto,
-                        Hito = reporte.Hito,
-                        DesenbolsoPnipa = reporte.DesenbolsoPnipa,
-                        TipoEntidadParticipa = reporte.TipoEntidadParticipa,
-                        BeneficioAmbiental = reporte.BeneficioAmbiental,
-                        TemaAmbiental = reporte.TemaAmbiental,
-                        BeneficioSocial = reporte.BeneficioSocial,
-                        NumeroBeneficiariosMujeres = reporte.NumeroBeneficiariosMujeres,
-                        NumeroBeneficiariosHombres = reporte.NumeroBeneficiariosHombres,
-                        TotalBeneficiarios = reporte.TotalBeneficiarios,
-                        SubProyectoEmblematico = reporte.SubProyectoEmblematico,
-                        LinkFicha = reporte.LinkFicha,
-                        HambreCero = reporte.HambreCero,
-                    }
-            )
-            .ToList();
     }
 }

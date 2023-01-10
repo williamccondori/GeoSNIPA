@@ -1,34 +1,33 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Pnipa.Geosnipa.Dominio.Entidades.PnipaConcursos.Dbo;
 
-namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Configuraciones.PnipaConcursos.Dbo
+namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Configuraciones.PnipaConcursos.Dbo;
+
+public class AporteEntidadPasoCriticoConfiguracion
+    : IEntityTypeConfiguration<AporteEntidadPasoCriticoEntidad>
 {
-    public class AporteEntidadPasoCriticoConfiguracion
-        : IEntityTypeConfiguration<AporteEntidadPasoCriticoEntidad>
+    public void Configure(EntityTypeBuilder<AporteEntidadPasoCriticoEntidad> builder)
     {
-        public void Configure(EntityTypeBuilder<AporteEntidadPasoCriticoEntidad> builder)
-        {
-            builder.HasKey(p => new { p.Id });
-            builder.ToTable("AporteEntidadPasoCritico", "dbo");
-            builder.Property(p => p.Id).HasColumnName("ID").IsRequired();
-            builder.Property(p => p.PasoCriticoId).HasColumnName("PasoCriticoID").IsRequired();
-            builder.Property(p => p.PoaId).HasColumnName("PoaID").IsRequired();
-            builder.Property(p => p.EntidadId).HasColumnName("EntidadID").IsRequired();
-            builder
-                .Property(p => p.AporteMonetario)
-                .HasColumnName("AporteMonetario")
-                .HasPrecision(18, 4);
-            builder
-                .Property(p => p.AporteNoMonetario)
-                .HasColumnName("AporteNoMonetario")
-                .HasPrecision(18, 4);
-            builder.Property(p => p.OldId).HasColumnName("OldID");
-            builder.Property(p => p.UsuarioIdRegistro).HasColumnName("UsuarioIdRegistro");
-            builder.Property(p => p.UsuarioIdModifico).HasColumnName("UsuarioIdModifico");
-            builder.Property(p => p.FechaRegistro).HasColumnName("FechaRegistro");
-            builder.Property(p => p.FechaModifico).HasColumnName("FechaModifico");
-            builder.Property(p => p.EstadoRegistro).HasColumnName("EstadoRegistro").IsRequired();
-        }
+        builder.HasKey(p => new { p.Id });
+        builder.ToTable("AporteEntidadPasoCritico", "dbo");
+        builder.Property(p => p.Id).HasColumnName("ID").IsRequired();
+        builder.Property(p => p.PasoCriticoId).HasColumnName("PasoCriticoID").IsRequired();
+        builder.Property(p => p.PoaId).HasColumnName("PoaID").IsRequired();
+        builder.Property(p => p.EntidadId).HasColumnName("EntidadID").IsRequired();
+        builder
+            .Property(p => p.AporteMonetario)
+            .HasColumnName("AporteMonetario")
+            .HasPrecision(18, 4);
+        builder
+            .Property(p => p.AporteNoMonetario)
+            .HasColumnName("AporteNoMonetario")
+            .HasPrecision(18, 4);
+        builder.Property(p => p.OldId).HasColumnName("OldID");
+        builder.Property(p => p.UsuarioIdRegistro).HasColumnName("UsuarioIdRegistro");
+        builder.Property(p => p.UsuarioIdModifico).HasColumnName("UsuarioIdModifico");
+        builder.Property(p => p.FechaRegistro).HasColumnName("FechaRegistro");
+        builder.Property(p => p.FechaModifico).HasColumnName("FechaModifico");
+        builder.Property(p => p.EstadoRegistro).HasColumnName("EstadoRegistro").IsRequired();
     }
 }

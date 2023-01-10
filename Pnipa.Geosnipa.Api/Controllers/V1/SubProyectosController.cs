@@ -1,7 +1,7 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Pnipa.Geosnipa.Aplicacion.Caracteristicas.SubProyectos.Commands.GuardarReporteParaGeoVisor;
-using Pnipa.Geosnipa.Aplicacion.Caracteristicas.SubProyectos.Queries.ObtenerReporteVisor;
+using Pnipa.Geosnipa.Aplicacion.Caracteristicas.SubProyectos.Queries.ObtenerReporteParaGeoVisor;
 
 namespace Pnipa.Geosnipa.Api.Controllers.V1;
 
@@ -17,26 +17,16 @@ public class SubProyectosController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet("ReportesGeoVisor")]
-    [ProducesResponseType(
-        StatusCodes.Status200OK,
-        Type = typeof(IEnumerable<ObtenerReporteParaGeoVisorResponse>)
-    )]
-    public async Task<IActionResult> ObtenerReporteVisor(
-        [FromQuery] ObtenerReporteParaGeoVisorRequest request
-    )
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ObtenerReporteParaGeoVisorResponse>))]
+    public async Task<IActionResult> ObtenerReporteVisor([FromQuery] ObtenerReporteParaGeoVisorRequest request)
     {
         return Ok(await _mediator.Send(request));
     }
 
-    [HttpPost("ReportesGeoVisor")]
-    [ProducesResponseType(
-        StatusCodes.Status201Created,
-        Type = typeof(GuardarReporteParaGeoVisorResponse)
-    )]
-    public async Task<IActionResult> GuardarReporteParaGeoVisor(
-        [FromQuery] GuardarReporteParaGeoVisorRequest request
-    )
+    [HttpPost("reportes-geovisor")]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(GuardarReporteParaGeoVisorResponse))]
+    public async Task<IActionResult> GuardarReporteParaGeoVisor([FromQuery] GuardarReporteParaGeoVisorRequest request)
     {
         return Ok(await _mediator.Send(request));
     }

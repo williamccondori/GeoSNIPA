@@ -1,4 +1,4 @@
-﻿using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido;
+using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido;
 
 namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.SubProyecto;
 

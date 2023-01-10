@@ -1,17 +1,16 @@
-﻿namespace Pnipa.Geosnipa.Dominio.Entidades.PnipaConcursos.Compartido
+namespace Pnipa.Geosnipa.Dominio.Entidades.PnipaConcursos.Compartido;
+
+public class EntidadAuditable
 {
-    public class EntidadAuditable
-    {
-        public string EstadoRegistro { get; set; } = default!;
-        public int? UsuarioIdRegistro { get; set; }
-        public int? UsuarioIdModifico { get; set; }
-        public DateTime? FechaRegistro { get; set; }
-        public DateTime? FechaModifico { get; set; }
+    #region Constantes
 
-        #region Constantes
+    public const string EstadoRegistroActivo = "1";
 
-        public const string EstadoRegistroActivo = "1";
+    #endregion
 
-        #endregion
-    }
+    public string EstadoRegistro { get; set; } = default!;
+    public int? UsuarioIdRegistro { get; set; }
+    public int? UsuarioIdModifico { get; set; }
+    public DateTime? FechaRegistro { get; set; }
+    public DateTime? FechaModifico { get; set; }
 }

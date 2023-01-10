@@ -1,4 +1,4 @@
-﻿using Pnipa.Geosnipa.Dominio.Modelos;
+using Pnipa.Geosnipa.Dominio.Modelos;
 
 namespace Pnipa.Geosnipa.Dominio.Repositorios.Sapel;
 

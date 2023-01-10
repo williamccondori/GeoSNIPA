@@ -1,6 +1,7 @@
-﻿using MediatR;
+using MediatR;
 
-namespace Pnipa.Geosnipa.Aplicacion.Caracteristicas.SubProyectos.Queries.ObtenerReporteVisor;
+namespace Pnipa.Geosnipa.Aplicacion.Caracteristicas.SubProyectos.Queries.ObtenerReporteParaGeoVisor;
 
-public class ObtenerReporteParaGeoVisorRequest
-    : IRequest<IEnumerable<ObtenerReporteParaGeoVisorResponse>> { }
+public class ObtenerReporteParaGeoVisorRequest : IRequest<IEnumerable<ObtenerReporteParaGeoVisorResponse>>
+{
+}

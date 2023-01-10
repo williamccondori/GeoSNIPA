@@ -1,4 +1,4 @@
-﻿namespace Pnipa.Geosnipa.Dominio.Modelos;
+namespace Pnipa.Geosnipa.Dominio.Modelos;
 
 public class ReporteParaGeoVisorModelo
 {

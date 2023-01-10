@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Admisibilidad;
 using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Concurso;
 using Pnipa.Geosnipa.Dominio.Entidades.Sapel.Contrato;
@@ -12,13 +12,21 @@ namespace Pnipa.Geosnipa.Infraestructura.SqlServer.Contextos;
 
 public class SapelContexto : DbContext
 {
-    public SapelContexto(DbContextOptions<SapelContexto> options) : base(options) { }
+    public SapelContexto(DbContextOptions<SapelContexto> options) : base(options)
+    {
+    }
 
     public virtual DbSet<OmrRegionEntidad> OmrRegiones { get; set; }
     public virtual DbSet<ConcursoEntidad> Concursos { get; set; }
     public virtual DbSet<ConcursoFondoEntidad> ConcursoFondos { get; set; }
     public virtual DbSet<ContratoAdjudicacionEntidad> ContratosAdjudicacion { get; set; }
-    public virtual DbSet<S10ComponenteActividadAlianzaEstrategicaEntidad> ComponentesActividadAlianzaEstrategica { get; set; }
+
+    public virtual DbSet<S10ComponenteActividadAlianzaEstrategicaEntidad> ComponentesActividadAlianzaEstrategica
+    {
+        get;
+        set;
+    }
+
     public virtual DbSet<S1EspecieEntidad> Especies { get; set; }
     public virtual DbSet<S1UbicacionEntidad> S1Ubicaciones { get; set; }
     public virtual DbSet<S5AlianzaEstrategicaEntidad> AlianzasEstrategicas { get; set; }

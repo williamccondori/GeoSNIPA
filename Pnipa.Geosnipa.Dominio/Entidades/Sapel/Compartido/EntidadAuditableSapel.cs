@@ -1,13 +1,12 @@
-﻿namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido
+namespace Pnipa.Geosnipa.Dominio.Entidades.Sapel.Compartido;
+
+public class EntidadAuditableSapel
 {
-    public class EntidadAuditableSapel
-    {
-        public string EstadoRegistro { get; set; } = default!;
+    #region Constantes
 
-        #region Constantes
+    public const string EstadoRegistroActivo = "1";
 
-        public const string EstadoRegistroActivo = "1";
+    #endregion
 
-        #endregion
-    }
+    public string EstadoRegistro { get; set; } = default!;
 }

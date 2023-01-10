@@ -1,9 +1,8 @@
-﻿using Pnipa.Geosnipa.Dominio.Modelos;
+using Pnipa.Geosnipa.Dominio.Modelos;
 
-namespace Pnipa.Geosnipa.Dominio.Repositorios.PnipaConcursos
+namespace Pnipa.Geosnipa.Dominio.Repositorios.PnipaConcursos;
+
+public interface ISubProyectoRepositorio
 {
-    public interface ISubProyectoRepositorio
-    {
-        Task<IEnumerable<ReporteParaGeoVisorModelo>> ObtenerReporteParaGeoVisor();
-    }
+    Task<IEnumerable<ReporteParaGeoVisorModelo>> ObtenerReporteParaGeoVisor();
 }
