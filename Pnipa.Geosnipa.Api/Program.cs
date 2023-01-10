@@ -1,18 +1,26 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
-using Pnipa.Geosnipa.Api;
 using Pnipa.Geosnipa.Aplicacion;
 using Pnipa.Geosnipa.Infraestructura.MongoDb;
 using Pnipa.Geosnipa.Infraestructura.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+
+builder.Services.AddApiVersioning(config =>
+{
+    config.DefaultApiVersion = new ApiVersion(1, 0);
+    config.AssumeDefaultVersionWhenUnspecified = true;
+    config.ReportApiVersions = true;
+});
 builder.Services.AddCors();
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureSqlServerLayer(builder.Configuration);
 builder.Services.AddInfrastructureMongoDbLayer();
 
 builder.Services.AddControllers();
-builder.Services.AddApiVersioningExtension();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -21,6 +29,7 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

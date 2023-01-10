@@ -5,13 +5,13 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pnipa.Geosnipa.Dominio", "Pnipa.Geosnipa.Dominio\Pnipa.Geosnipa.Dominio.csproj", "{57345729-14C0-4321-8DA9-2F95CD5ABA9B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pnipa.Geosnipa.Api", "Pnipa.Geosnipa.Api\Pnipa.Geosnipa.Api.csproj", "{BFD5C121-6C77-48A5-8373-AAC8B402F957}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pnipa.Geosnipa.Infraestructura.SqlServer", "Pnipa.Geosnipa.Infraestructura.SqlServer\Pnipa.Geosnipa.Infraestructura.SqlServer.csproj", "{D1A96AA8-877F-4229-BBF5-85B526486DFA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pnipa.Geosnipa.Aplicacion", "Pnipa.Geosnipa.Aplicacion\Pnipa.Geosnipa.Aplicacion.csproj", "{E78A0E28-5C5A-43AF-9FB4-49D6B6DAB743}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pnipa.Geosnipa.Infraestructura.MongoDb", "Pnipa.Geosnipa.Infraestructura.MongoDb\Pnipa.Geosnipa.Infraestructura.MongoDb.csproj", "{82360710-C1E2-4A38-BC87-FD38D3103AB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pnipa.Geosnipa.Infraestructura.MongoDb", "Pnipa.Geosnipa.Infraestructura.MongoDb\Pnipa.Geosnipa.Infraestructura.MongoDb.csproj", "{82360710-C1E2-4A38-BC87-FD38D3103AB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pnipa.Geosnipa.Api", "Pnipa.Geosnipa.Api\Pnipa.Geosnipa.Api.csproj", "{47947F50-07E2-4498-9976-F416CB9B043D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,6 @@ Global
 		{57345729-14C0-4321-8DA9-2F95CD5ABA9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57345729-14C0-4321-8DA9-2F95CD5ABA9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57345729-14C0-4321-8DA9-2F95CD5ABA9B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BFD5C121-6C77-48A5-8373-AAC8B402F957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFD5C121-6C77-48A5-8373-AAC8B402F957}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFD5C121-6C77-48A5-8373-AAC8B402F957}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFD5C121-6C77-48A5-8373-AAC8B402F957}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1A96AA8-877F-4229-BBF5-85B526486DFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D1A96AA8-877F-4229-BBF5-85B526486DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1A96AA8-877F-4229-BBF5-85B526486DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{82360710-C1E2-4A38-BC87-FD38D3103AB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82360710-C1E2-4A38-BC87-FD38D3103AB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82360710-C1E2-4A38-BC87-FD38D3103AB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47947F50-07E2-4498-9976-F416CB9B043D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47947F50-07E2-4498-9976-F416CB9B043D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47947F50-07E2-4498-9976-F416CB9B043D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47947F50-07E2-4498-9976-F416CB9B043D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
