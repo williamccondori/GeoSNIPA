@@ -387,7 +387,9 @@ public class SubProyectoRepositorio : ISubProyectoRepositorio
                 EslabonCadena = subProyecto.EslabonId.ToString(),
                 Especies =
                     valoresTabla
-                        .FirstOrDefault(x => x.TablaId == 52 && x.Id == subProyecto.EspecieId)
+                        .FirstOrDefault(
+                            valorTabla => valorTabla.TablaId == 52
+                                          && valorTabla.Id == subProyecto.EspecieId)
                         ?.Descripcion ?? subProyecto.Especie,
                 Usuario = subProyecto.Usuario,
                 EntidadProponente = subProyecto.EntidadProponente,
