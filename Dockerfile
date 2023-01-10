@@ -16,5 +16,6 @@ RUN dotnet publish "Pnipa.Geosnipa.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
+ENV TZ=America/Lima
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Pnipa.Geosnipa.Api.dll"]

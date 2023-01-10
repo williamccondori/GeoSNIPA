@@ -9,8 +9,7 @@ public static class ServicesExtension
 {
     public static void AddInfrastructureMongoDbLayer(this IServiceCollection services)
     {
-        services.AddSingleton(s => new
-            GeosnipaContexto("mongodb://root:ficticio@172.16.24.65:27017/", "geosnipa"));
+        services.AddSingleton(new GeosnipaContexto("mongodb://root:ficticio@172.16.24.65:27017/", "geosnipa"));
         services.AddTransient<ISubProyectoRepositorio, SubProyectoRepositorio>();
     }
 }
