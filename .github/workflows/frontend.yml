@@ -8,6 +8,7 @@ on:
     
 env:
   PROJECT_NAME: geosnipa-frontend
+  DOCKER_REGISTRY: ${{env.DOCKER_REGISTRY}}
 
 jobs:
   build:
