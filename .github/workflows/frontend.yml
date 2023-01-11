@@ -18,17 +18,17 @@ jobs:
       - name: Docker Login
         uses: docker/login-action@v2.1.0
         with:
-          registry: ${{ vars.DOCKER_REGISTRY }}
+          # registry: ${{ vars.DOCKER_REGISTRY }}
           username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v2
+      - name: Docker build and push
+        uses: docker/build-push-action@v3.2.0
         with:
-          push: true
           context: frontend
           build-args: BASE_URL=${{ vars.BASE_URL }}
           tags: ${{ vars.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:${{ github.sha }},${{ vars.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:latest
+          push: true
 
   deploy:
     runs-on: ubuntu-latest
