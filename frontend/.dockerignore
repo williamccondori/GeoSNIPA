@@ -1,0 +1,13 @@
+.idea/
+.vscode/
+
+.git
+.gitignore
+.dockerignore
+
+dist/
+.nuxt/
+
+.env
+
+node_modules/
