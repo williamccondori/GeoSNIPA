@@ -14,6 +14,13 @@ RUN npm install
 
 COPY . /usr/src/app
 
+# Recoger argumento para variable de entorno
+
+ARG api
+
+ENV BASE_URL=$api
+
+
 ENV NODE_OPTIONS=--openssl-legacy-provider
 
 RUN npm run generate

@@ -2,7 +2,7 @@ name: CI/CD pipeline
 on:
   push:
     branches:
-      - main
+      - ["main"]
     paths:
       - migracion/**
       - backend/**
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build image
         id: build_image
@@ -37,7 +37,7 @@ jobs:
     if: startsWith(github.ref, 'refs/heads/master')
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Deploy migracion
         run: |
           ssh-keyscan ${{ env.SSH_HOST }} >> ~/.ssh/known_hosts
