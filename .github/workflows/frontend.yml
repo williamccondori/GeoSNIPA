@@ -5,7 +5,7 @@ on:
     branches: ["main"]
     # paths:
     #  - frontend/**
-    
+
 env:
   PROJECT_NAME: geosnipa-frontend
 
@@ -21,17 +21,14 @@ jobs:
           registry: ${{ vars.DOCKER_REGISTRY }}
           username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          
-      - name: Build
-        id: build
-        run: |
-          cd frontend
-          docker build -t ${{ vars.DOCKER_REGISTRY }}/${{ vars.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:${{ github.sha }} -t ${{ vars.DOCKER_REGISTRY }}/${{ vars.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:latest .
-      
-      - name: Push
-        run: |
-          docker push ${{ vars.DOCKER_REGISTRY }}/${{ vars.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:${{ github.sha }}
-          docker push ${{ vars.DOCKER_REGISTRY }}/${{ vars.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:latest
+
+      - name: Build and push
+        uses: docker/build-push-action@v3.2.0
+        with:
+          push: true
+          context: frontend
+          build-args: BASE_URL=${{ var.BASE_URL }}
+          tags: ${{ vars.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:${{ github.sha }},${{ vars.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:latest
 
   deploy:
     runs-on: ubuntu-latest

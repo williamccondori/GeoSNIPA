@@ -16,9 +16,9 @@ COPY . /usr/src/app
 
 # Recoger argumento para variable de entorno
 
-ARG api
+ARG BASE_URL
 
-ENV BASE_URL=$api
+ENV BASE_URL=$BASE_URL
 
 ENV NODE_OPTIONS=--openssl-legacy-provider
 
