@@ -14,9 +14,9 @@ jobs:
       - name: Build
         id: build
         run: |
-          cd ./frontend
+          pwd
+          cd frontend
           docker build -t ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/frontend:${{ env.SHA }} .
-        # Hace push
       - name: Push
         run: |
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ env.DOCKER_USERNAME }} --password-stdin ${{ env.DOCKER_REGISTRY }}
