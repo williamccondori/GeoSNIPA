@@ -1,5 +1,5 @@
 <template>
-  <h1>Pendiente!</h1>
+  <h1>Pendiente</h1>
 </template>
 
 <script>
