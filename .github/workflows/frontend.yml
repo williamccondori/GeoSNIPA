@@ -17,27 +17,28 @@ jobs:
       
       - name: Test
         run: |
-         echo ${{ env.DOCKER_REGISTRY }}
-         echo ${{ env.DOCKER_USERNAME }}
-         echo ${{ secrets.DOCKER_PASSWORD }}
+         echo "Ingresando 🐼🐼🐼"
+         echo ${{env.DOCKER_REGISTRY}}
+         echo ${{env.DOCKER_USERNAME}}
+         echo ${{secrets.DOCKER_PASSWORD}}
      
       - name: Docker Login
         uses: docker/login-action@v2.1.0
         with:
-          registry: ${{ env.DOCKER_REGISTRY }}
-          username: ${{ env.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: ${{env.DOCKER_REGISTRY}}
+          username: ${{env.DOCKER_USERNAME}}
+          password: ${{secrets.DOCKER_PASSWORD}}
           
       - name: Build
         id: build
         run: |
           cd frontend
-          docker build -t ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/$PROJECT_NAME:${{ env.SHA }} -t -t ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/$PROJECT_NAME:latest .
+          docker build -t ${{env.DOCKER_REGISTRY}}/${{env.DOCKER_USERNAME}}/$PROJECT_NAME:${{env.SHA}} -t -t ${{env.DOCKER_REGISTRY}}/${{env.DOCKER_USERNAME}}/$PROJECT_NAME:latest .
       
       - name: Push
         run: |
-          docker push ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/$PROJECT_NAME:${{ env.SHA }}
-          docker push ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/$PROJECT_NAME:latest
+          docker push ${{env.DOCKER_REGISTRY}}/${{env.DOCKER_USERNAME}}/$PROJECT_NAME:${{env.SHA}}
+          docker push ${{env.DOCKER_REGISTRY}}/${{env.DOCKER_USERNAME}}/$PROJECT_NAME:latest
 
   deploy:
     runs-on: ubuntu-latest
