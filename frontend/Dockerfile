@@ -20,7 +20,6 @@ ARG api
 
 ENV BASE_URL=$api
 
-
 ENV NODE_OPTIONS=--openssl-legacy-provider
 
 RUN npm run generate

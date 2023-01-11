@@ -1,0 +1,34 @@
+name: CI/CD pipeline
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - frontend/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        id: build
+        run: |
+          cd frontend
+          docker build -t ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/frontend:${{ env.SHA }} .
+        # Hace push
+      - name: Push
+        run: |
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ env.DOCKER_USERNAME }} --password-stdin ${{ env.DOCKER_REGISTRY }}
+          docker push ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/frontend:${{ env.SHA }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: startsWith(github.ref, 'refs/heads/master')
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy
+        run: |
+          ssh-keyscan ${{ env.SSH_HOST }} >> ~/.ssh/known_hosts
+          ssh -i ${{ env.SSH_PRIVATE_KEY }} ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/frontend:${{ env.SHA }} && docker-compose -f frontend/docker-compose.yml up -d --no-deps --build frontend"
