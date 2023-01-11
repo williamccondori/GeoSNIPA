@@ -3,8 +3,8 @@ name: CI/CD pipeline
 on:
   push:
     branches: ["main"]
-    paths:
-      - frontend/**
+    # paths:
+    #  - frontend/**
 
 jobs:
   build:
@@ -16,6 +16,7 @@ jobs:
         run: |
           pwd
           cd frontend
+          pwd
           docker build -t ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/frontend:${{ env.SHA }} .
       - name: Push
         run: |
