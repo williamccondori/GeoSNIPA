@@ -8,7 +8,7 @@ on:
     
 env:
   PROJECT_NAME: geosnipa-frontend
-  DOCKER_REGISTRY: ${{ env.DOCKER_REGISTRY }}
+  DOCKER_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
 
 jobs:
   build:
@@ -21,8 +21,8 @@ jobs:
          echo "Ingresando 🐼🐼🐼"
          echo $PROJECT_NAME
          echo ${{ env.PROJECT_NAME }}
-         echo ${{ env.DOCKER_REGISTRY }}
-         echo ${{ env.DOCKER_USERNAME }}
+         echo ${{ vars.DOCKER_REGISTRY }}
+         echo ${{ vars.DOCKER_USERNAME }}
          echo ${{ secrets.DOCKER_PASSWORD }}
      
       - name: Docker Login
