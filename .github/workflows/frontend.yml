@@ -18,6 +18,8 @@ jobs:
       - name: Test
         run: |
          echo "Ingresando 🐼🐼🐼"
+         echo $PROJECT_NAME
+         echo ${{env.PROJECT_NAME}}
          echo ${{env.DOCKER_REGISTRY}}
          echo ${{env.DOCKER_USERNAME}}
          echo ${{secrets.DOCKER_PASSWORD}}
